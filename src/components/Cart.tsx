@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ShoppingBag, Trash2, ShieldCheck, CheckCircle2, Send } from 'lucide-react';
 import { CartItem } from '../types';
+import InvoiceActions from './InvoiceActions';
 
 interface CartProps {
   isOpen: boolean;
@@ -246,6 +247,12 @@ export default function Cart({ isOpen, onClose, cartItems, onRemoveItem, onClear
                       <Send size={15} />
                       <span>Confirm Order on WhatsApp</span>
                     </a>
+
+                    <InvoiceActions
+                      items={cartItems.map((i) => ({ name: i.product.name, quantity: i.quantity, price: i.product.price }))}
+                      total={total}
+                      invoiceNo="#JA-2026-9042"
+                    />
                   </div>
 
                   <button
