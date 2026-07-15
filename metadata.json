@@ -1,0 +1,6 @@
+{
+  "name": "Jarin Atelier | Luxury Islamic Calligraphy & Custom Art",
+  "description": "Premium handmade Islamic calligraphy, custom Arabic name art, luxury wall decor and personalized artwork crafted with devotion.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
