@@ -465,8 +465,18 @@ export default function CustomOrder() {
                   <div className="w-12 h-[1px] bg-brand-gold/50 mx-auto" />
 
                   <p className="font-sans text-sm text-gray-300 leading-relaxed max-w-xl mx-auto font-light">
-                    Thank you for entrusting your vision to Jarin Atelier. Your specifications have been safely cataloged. Our chief art concierge, <strong>Zayd Al-Mansoori</strong>, will personally reach out to you via your email address (<strong>{formInput.email}</strong>) within 24 hours to coordinate the initial sketch consult.
+                    Thank you for entrusting your vision to Jarin Atelier. Your specifications have been safely cataloged. Our chief art concierge will personally reach out to you via your email address (<strong>{formInput.email}</strong>) and WhatsApp within 24 hours to coordinate the initial sketch consult.
                   </p>
+
+                  <a
+                    href={`https://wa.me/8801890770297?text=${encodeURIComponent("Assalamu alaikum, I just submitted a Bespoke Order request. Please confirm my commission details. JazakAllah.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center space-x-2 px-8 py-3 bg-[#25D366] text-white hover:bg-[#1ebe5a] text-[11px] tracking-[0.2em] font-semibold uppercase rounded transition-all duration-500 focus:outline-none cursor-pointer shadow-md hover:shadow-lg"
+                  >
+                    <Send size={15} />
+                    <span>Send Order to WhatsApp</span>
+                  </a>
 
                   <div className="pt-6">
                     <button

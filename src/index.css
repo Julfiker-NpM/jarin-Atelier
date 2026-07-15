@@ -1,21 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-arabic: "Amiri", serif;
   --font-signature: "Cormorant Garamond", serif;
   --font-handwritten: "Cormorant Garamond", serif;
 
-  /* Refined matte-charcoal luxury palette */
-  --color-brand-black: #0E0D0C;        /* Matte charcoal page background */
-  --color-brand-cream: #F4EEE2;        /* Warm ivory typography */
-  --color-brand-gold: #C8A15A;         /* Brushed metallic gold leaf */
-  --color-brand-gold-light: #E4C886;
-  --color-brand-gold-dark: #9C7B36;
-  --color-brand-brown: #3A2E26;
-  --color-brand-olive: #556B2F;
+  /* Warm ivory + antique gold luxury palette (light theme) */
+  --color-brand-black: #FAF7F1;        /* Warm ivory page background */
+  --color-brand-cream: #211C15;        /* Warm near-black ink typography */
+  --color-brand-gold: #B5873C;         /* Antique metallic gold leaf */
+  --color-brand-gold-light: #D8B25E;
+  --color-brand-gold-dark: #8A6526;
+  --color-brand-brown: #5A4A3A;
+  --color-brand-olive: #6B7240;
+
+  --color-brand-ink: #211C15;          /* Primary text on light */
+  --color-brand-muted: #6B6258;        /* Secondary text on light */
+  --color-brand-line: rgba(33, 28, 21, 0.10); /* Hairline borders */
 
   --animate-gold-glow: gold-glow 4s ease-in-out infinite alternate;
   --animate-fade-in: fade-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -28,10 +32,10 @@
 
   @keyframes gold-glow {
     0% {
-      text-shadow: 0 0 10px rgba(200, 161, 90, 0.15), 0 0 20px rgba(200, 161, 90, 0.05);
+      text-shadow: 0 0 10px rgba(181, 135, 60, 0.10), 0 0 20px rgba(181, 135, 60, 0.04);
     }
     100% {
-      text-shadow: 0 0 25px rgba(200, 161, 90, 0.4), 0 0 40px rgba(200, 161, 90, 0.2);
+      text-shadow: 0 0 25px rgba(181, 135, 60, 0.28), 0 0 40px rgba(181, 135, 60, 0.14);
     }
   }
   @keyframes fade-in {
@@ -77,26 +81,26 @@
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0E0D0C;
+  background: #EFE9DE;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #C8A15A, #9C7B36);
+  background: linear-gradient(180deg, #D8B25E, #8A6526);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #E4C886;
+  background: #B5873C;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #0E0D0C;
-  color: #F4EEE2;
+  background-color: #FAF7F1;
+  color: #211C15;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #0E0D0C;
-  color: #F4EEE2;
+  background-color: #FAF7F1;
+  color: #211C15;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -111,10 +115,10 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(62% 46% at 50% -8%, rgba(200, 161, 90, 0.12), transparent 70%),
-    radial-gradient(46% 40% at 88% 104%, rgba(200, 161, 90, 0.06), transparent 72%),
-    radial-gradient(120% 120% at 50% 42%, transparent 52%, rgba(0, 0, 0, 0.55) 100%),
-    #0E0D0C;
+    radial-gradient(62% 46% at 50% -8%, rgba(181, 135, 60, 0.12), transparent 70%),
+    radial-gradient(46% 40% at 88% 104%, rgba(181, 135, 60, 0.07), transparent 72%),
+    radial-gradient(120% 120% at 50% 42%, transparent 55%, rgba(33, 28, 21, 0.04) 100%),
+    #FAF7F1;
 }
 
 /* ---- Faint Islamic geometric emboss + minimal velvet noise + vignette (above content, non-interactive) ---- */
@@ -124,11 +128,59 @@ body::after {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.035;
   background-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='90'%20height='90'%20viewBox='0%200%2090%2090'%3E%3Cg%20fill='none'%20stroke='%23C8A15A'%20stroke-width='0.6'%20stroke-opacity='0.6'%3E%3Crect%20x='30'%20y='30'%20width='30'%20height='30'/%3E%3Crect%20x='30'%20y='30'%20width='30'%20height='30'%20transform='rotate(45%2045%2045)'/%3E%3Ccircle%20cx='45'%20cy='45'%20r='22'/%3E%3Cpath%20d='M45%208%20V82%20M8%2045%20H82'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='90'%20height='90'%20viewBox='0%200%2090%2090'%3E%3Cg%20fill='none'%20stroke='%23B5873C'%20stroke-width='0.6'%20stroke-opacity='0.6'%3E%3Crect%20x='30'%20y='30'%20width='30'%20height='30'/%3E%3Crect%20x='30'%20y='30'%20width='30'%20height='30'%20transform='rotate(45%2045%2045)'/%3E%3Ccircle%20cx='45'%20cy='45'%20r='22'/%3E%3Cpath%20d='M45%208%20V82%20M8%2045%20H82'/%3E%3C/g%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 90px 90px, 160px 160px;
+}
+
+/* ============================================================
+   LIGHT-THEME OVERRIDES
+   The codebase leans on many hardcoded dark utilities
+   (text-white, bg-black/70, bg-[#0f0f0f] ...). These rules
+   remap them to the warm ivory + antique gold palette so the
+   whole site flips to a premium light theme.
+   ============================================================ */
+.text-white { color: #211C15 !important; }
+/* brand-black was the old dark ink; keep it as dark ink on gold/accent surfaces */
+.text-brand-black { color: #211C15 !important; }
+.text-brand-black\/80 { color: rgba(33, 28, 21, 0.8) !important; }
+.border-brand-black\/10 { border-color: rgba(33, 28, 21, 0.10) !important; }
+.text-gray-200 { color: #3A342B !important; }
+.text-gray-300,
+.text-gray-400 { color: #6B6258 !important; }
+.text-gray-500 { color: #8A8077 !important; }
+
+/* Dark backdrop utilities become soft ivory/white overlays */
+.bg-black\/70,
+.bg-black\/80,
+.bg-black\/90,
+.bg-black\/98 {
+  background-color: rgba(250, 247, 241, 0.92) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Hardcoded near-black fills become clean light panels */
+.bg-\[\#070707\],
+.bg-\[\#0a0908\],
+.bg-\[\#0c0c0c\],
+.bg-\[\#0f0f0f\],
+.bg-\[\#121212\] {
+  background-color: #FFFFFF !important;
+}
+
+/* Subtle dark-tint utilities become gentle ink tints on light */
+.bg-white\/5,
+.bg-white\/10 {
+  background-color: rgba(33, 28, 21, 0.04) !important;
+}
+
+/* Hairline borders: white tints -> ink tints */
+.border-white\/5,
+.border-white\/10,
+.border-white\/20 {
+  border-color: rgba(33, 28, 21, 0.10) !important;
 }
 
 /* ---- Typography helpers ---- */
@@ -136,44 +188,35 @@ body::after {
   letter-spacing: 0.01em;
 }
 .gold-text {
-  background: linear-gradient(135deg, #E4C886 0%, #C8A15A 45%, #9C7B36 100%);
+  background: linear-gradient(135deg, #D8B25E 0%, #B5873C 45%, #8A6526 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
 .eyebrow {
-  color: #C8A15A;
+  color: #B5873C;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   font-size: 11px;
   font-weight: 600;
 }
 
-/* Muted typography tuned for dark surfaces */
-.text-gray-300,
-.text-gray-400 {
-  color: #B8B2A7 !important;
-}
-.text-gray-500 {
-  color: #8A857C !important;
-}
-
 /* ============================================================
    NAVIGATION
    ============================================================ */
 .glass-nav {
-  background: rgba(14, 13, 12, 0.72) !important;
+  background: rgba(250, 247, 241, 0.78) !important;
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
-  border-bottom: 1px solid rgba(200, 161, 90, 0.18) !important;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45) !important;
+  border-bottom: 1px solid rgba(181, 135, 60, 0.22) !important;
+  box-shadow: 0 8px 40px rgba(33, 28, 21, 0.10) !important;
 }
 
 /* Elegant nav link with gold hover underline */
 .nav-link-lux {
   position: relative;
-  color: #C9C3B8;
+  color: #6B6258;
   transition: color 0.5s var(--ease-lux);
 }
 .nav-link-lux::after {
@@ -183,34 +226,34 @@ body::after {
   right: 50%;
   bottom: -2px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #E4C886, transparent);
+  background: linear-gradient(90deg, transparent, #D8B25E, transparent);
   transition: left 0.45s var(--ease-lux), right 0.45s var(--ease-lux);
 }
 .nav-link-lux:hover,
 .nav-link-lux.is-active {
-  color: #F4EEE2;
+  color: #211C15;
 }
 .nav-link-lux:hover::after,
 .nav-link-lux.is-active::after {
   left: 0;
   right: 0;
-  box-shadow: 0 0 10px rgba(200, 161, 90, 0.5);
+  box-shadow: 0 0 10px rgba(181, 135, 60, 0.5);
 }
 
 /* ============================================================
    BUTTONS
    ============================================================ */
 .btn-gold {
-  background: linear-gradient(135deg, #E4C886, #C8A15A 55%, #9C7B36);
-  color: #0E0D0C;
+  background: linear-gradient(135deg, #E2C079, #B5873C 55%, #8A6526);
+  color: #211C15;
   position: relative;
   overflow: hidden;
   transition: all 0.5s var(--ease-lux);
-  box-shadow: 0 10px 30px -10px rgba(200, 161, 90, 0.45);
+  box-shadow: 0 10px 30px -10px rgba(181, 135, 60, 0.45);
 }
 .btn-gold:hover {
-  color: #0E0D0C;
-  box-shadow: 0 14px 40px -8px rgba(200, 161, 90, 0.6);
+  color: #211C15;
+  box-shadow: 0 14px 40px -8px rgba(181, 135, 60, 0.6);
   transform: translateY(-1px);
 }
 .btn-gold::after {
@@ -220,7 +263,7 @@ body::after {
   left: -60%;
   width: 40%;
   height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   transform: skewX(-20deg);
   transition: left 0.7s var(--ease-lux);
 }
@@ -228,15 +271,15 @@ body::after {
   left: 130%;
 }
 .btn-outline {
-  border: 1px solid rgba(200, 161, 90, 0.6);
-  color: #F4EEE2;
+  border: 1px solid rgba(181, 135, 60, 0.6);
+  color: #211C15;
   transition: all 0.5s var(--ease-lux);
 }
 .btn-outline:hover {
-  border-color: #E4C886;
-  background: rgba(200, 161, 90, 0.1);
-  color: #E4C886;
-  box-shadow: 0 0 30px -6px rgba(200, 161, 90, 0.4);
+  border-color: #B5873C;
+  background: rgba(181, 135, 60, 0.10);
+  color: #8A6526;
+  box-shadow: 0 0 30px -6px rgba(181, 135, 60, 0.4);
 }
 
 /* ============================================================
@@ -249,20 +292,15 @@ body::after {
 .bg-\[\#121212\]\/50,
 .bg-\[\#121212\]\/20,
 .bg-brand-black\/70 {
-  background-color: rgba(21, 19, 15, 0.72) !important;
-  border-color: rgba(200, 161, 90, 0.14) !important;
-  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.75) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(181, 135, 60, 0.20) !important;
+  box-shadow: 0 30px 70px -34px rgba(33, 28, 21, 0.25) !important;
   backdrop-filter: blur(6px);
 }
 .grid > div.bg-brand-black .text-brand-gold,
 .grid > div.bg-\[\#121212\]\/30 .text-brand-gold,
 .grid > div.bg-\[\#121212\]\/50 .text-brand-gold {
-  color: #C8A15A !important;
-}
-.grid > div.bg-brand-black .text-gray-400,
-.grid > div.bg-\[\#121212\]\/30 .text-gray-400,
-.grid > div.bg-\[\#121212\]\/50 .text-gray-400 {
-  color: #B8B2A7 !important;
+  color: #B5873C !important;
 }
 
 /* ============================================================
@@ -272,15 +310,18 @@ input,
 select,
 textarea,
 .bg-brand-black select {
-  background-color: rgba(22, 20, 15, 0.85) !important;
-  color: #F4EEE2 !important;
-  border: 1px solid rgba(200, 161, 90, 0.28) !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #211C15 !important;
+  border: 1px solid rgba(181, 135, 60, 0.35) !important;
 }
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #C8A15A !important;
-  box-shadow: 0 0 0 2.5px rgba(200, 161, 90, 0.14) !important;
+  border-color: #B5873C !important;
+  box-shadow: 0 0 0 2.5px rgba(181, 135, 60, 0.16) !important;
+}
+::placeholder {
+  color: #A79C8E !important;
 }
 
 /* ============================================================
@@ -289,46 +330,49 @@ textarea:focus {
 #cart-drawer-panel,
 #wishlist-drawer-panel,
 .fixed.top-0.bottom-0.left-0.w-4\/5 {
-  background-color: #0E0D0C !important;
-  border-left: 1px solid rgba(200, 161, 90, 0.22) !important;
-  box-shadow: 22px 0 70px rgba(0, 0, 0, 0.6) !important;
+  background-color: #FAF7F1 !important;
+  border-left: 1px solid rgba(181, 135, 60, 0.28) !important;
+  box-shadow: 22px 0 70px rgba(33, 28, 21, 0.18) !important;
 }
 #cart-drawer-panel *,
 #wishlist-drawer-panel * {
-  color: #F4EEE2;
+  color: #211C15;
 }
 #cart-drawer-panel .text-brand-gold,
 #wishlist-drawer-panel .text-brand-gold {
-  color: #C8A15A !important;
+  color: #B5873C !important;
 }
 #cart-drawer-panel .text-gray-400,
 #wishlist-drawer-panel .text-gray-400 {
-  color: #B8B2A7 !important;
+  color: #6B6258 !important;
 }
 #cart-drawer-panel .bg-\[\#121212\]\/50,
 #cart-drawer-panel .bg-\[\#121212\] {
-  background-color: rgba(21, 19, 15, 0.8) !important;
-  border: 1px solid rgba(200, 161, 90, 0.12) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(181, 135, 60, 0.18) !important;
 }
 
 .glass-panel {
-  background: rgba(20, 18, 16, 0.82) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
   backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(200, 161, 90, 0.2) !important;
-  box-shadow: 0 16px 50px -16px rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(181, 135, 60, 0.25) !important;
+  box-shadow: 0 16px 50px -16px rgba(33, 28, 21, 0.18) !important;
 }
 
 /* ============================================================
    MUSEUM FRAME & ARTWORK CANVAS
+   Kept dark-on-light: artwork reads as gilded pieces hung on
+   a warm ivory wall. The inner canvas stays deep so calligraphy
+   and imagery pop, but borders are softened for a premium feel.
    ============================================================ */
 .museum-frame {
   position: relative;
-  border: 12px solid #0A0908 !important;
-  outline: 1px solid #C8A15A !important;
+  border: 10px solid #1B1712 !important;
+  outline: 1px solid #B5873C !important;
   box-shadow:
-    0 0 0 4px #0A0908,
-    0 22px 60px -14px rgba(0, 0, 0, 0.75),
-    inset 0 0 22px rgba(0, 0, 0, 0.7) !important;
+    0 0 0 3px #1B1712,
+    0 22px 60px -14px rgba(33, 28, 21, 0.30),
+    inset 0 0 22px rgba(0, 0, 0, 0.6) !important;
   background-color: #16130E !important;
 }
 .museum-frame::after {
@@ -338,14 +382,14 @@ textarea:focus {
   left: -1px;
   right: -1px;
   bottom: -1px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   pointer-events: none;
 }
 .museum-frame .bg-brand-black,
 .museum-frame .border-brand-black,
 .museum-frame .inner-gold-border {
-  background-color: #0A0908 !important;
-  border-color: #C8A15A !important;
+  background-color: #16130E !important;
+  border-color: #B5873C !important;
 }
 .museum-frame svg path,
 .museum-frame svg circle {
@@ -354,25 +398,25 @@ textarea:focus {
 .museum-frame .font-serif,
 .museum-frame .text-brand-gold,
 .museum-frame .font-arabic {
-  color: #C8A15A !important;
+  color: #B5873C !important;
 }
 .museum-frame .text-gray-400 {
   color: #B8B2A7 !important;
 }
 .inner-gold-border {
-  border: 2px solid #C8A15A !important;
+  border: 2px solid #B5873C !important;
   padding: 1rem;
-  background-color: #0A0908 !important;
+  background-color: #16130E !important;
   position: relative;
 }
 
 /* Artwork canvas: clean matte charcoal with a soft warm spotlight + faint velvet */
 .canvas-texture {
-  background-color: #0E0D0C !important;
+  background-color: #16130E !important;
   background-image:
-    radial-gradient(110% 80% at 50% 26%, rgba(200, 161, 90, 0.10), transparent 60%),
+    radial-gradient(110% 80% at 50% 26%, rgba(181, 135, 60, 0.14), transparent 60%),
     radial-gradient(80% 60% at 50% 120%, rgba(0, 0, 0, 0.5), transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 42%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 42%) !important;
 }
 
 /* Glass reflection sheen used on artwork */

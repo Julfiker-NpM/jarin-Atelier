@@ -36,7 +36,7 @@ export default function Contact() {
     {
       name: 'WhatsApp',
       icon: <MessageCircle size={18} />,
-      link: 'https://wa.me/447400000000',
+      link: 'https://wa.me/8801890770297',
       label: 'Direct Chat',
       color: 'hover:border-green-500/40 hover:text-green-400',
     },
@@ -224,9 +224,9 @@ export default function Contact() {
                   <span className="text-[10px] text-gray-500 uppercase tracking-widest block font-sans font-semibold">
                     Atelier Address
                   </span>
-                  <span className="font-serif text-sm text-white mt-1 block">
-                    Suite 88A, Luxury Galleria Block, Knightsbridge, London, UK
-                  </span>
+                   <span className="font-serif text-sm text-white mt-1 block">
+                     House 38, Road 18, Sector 14, Uttara, Dhaka 1230
+                   </span>
                 </div>
               </div>
 
@@ -238,9 +238,9 @@ export default function Contact() {
                   <span className="text-[10px] text-gray-500 uppercase tracking-widest block font-sans font-semibold">
                     Concierge Hotlines
                   </span>
-                  <span className="font-serif text-sm text-white mt-1 block">
-                    +44 20 7946 0192 (Direct Call) | +44 74 0000 0000 (WhatsApp)
-                  </span>
+                   <span className="font-serif text-sm text-white mt-1 block">
+                     +880 1890 770297 (Direct Call) | +880 1890 770297 (WhatsApp)
+                   </span>
                 </div>
               </div>
 
@@ -253,7 +253,7 @@ export default function Contact() {
                     Direct Email Enquiries
                   </span>
                   <span className="font-serif text-sm text-white mt-1 block hover:text-brand-gold transition-colors">
-                    concierge@jarinatelier.com
+                    jarinateliar26@gmail.com
                   </span>
                 </div>
               </div>

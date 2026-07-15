@@ -102,15 +102,15 @@ export default function Footer({ setCurrentTab }: FooterProps) {
             <ul className="space-y-4 text-xs sm:text-sm font-sans font-light text-gray-400">
               <li className="flex items-start space-x-3">
                 <MapPin size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                <span>Suite 88A, Luxury Galleria Block, Knightsbridge, London, UK</span>
+                <span>House 38, Road 18, Sector 14, Uttara, Dhaka 1230</span>
               </li>
               <li className="flex items-start space-x-3">
                 <Phone size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                <span>+44 20 7946 0192 (Call)</span>
+                <span>+880 1890 770297 (Call)</span>
               </li>
               <li className="flex items-start space-x-3">
                 <MessageCircle size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                <span>+44 74 0000 0000 (WhatsApp)</span>
+                <span>+880 1890 770297 (WhatsApp)</span>
               </li>
             </ul>
           </div>
@@ -159,10 +159,10 @@ export default function Footer({ setCurrentTab }: FooterProps) {
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] text-gray-500 font-sans font-light">
           <p>© {currentYear} Jarin Atelier. Sacred Traditional Handcrafts. All Rights Reserved.</p>
            <div className="flex items-center space-x-5 mt-4 sm:mt-0 text-gray-400">
-             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-brand-gold transition-colors"><Instagram size={16} /></a>
-             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-brand-gold transition-colors"><Facebook size={16} /></a>
-             <a href="https://m.me/something" target="_blank" rel="noopener noreferrer" aria-label="Messenger" className="hover:text-brand-gold transition-colors"><MessageCircle size={16} /></a>
-             <a href="https://wa.me/something" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-brand-gold transition-colors"><Send size={16} /></a>
+              <a href="https://instagram.com/jarin_atelier" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-brand-gold transition-colors"><Instagram size={16} /></a>
+              <a href="https://facebook.com/jarin.atelier" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-brand-gold transition-colors"><Facebook size={16} /></a>
+              <a href="https://m.me/jarin.atelier" target="_blank" rel="noopener noreferrer" aria-label="Messenger" className="hover:text-brand-gold transition-colors"><MessageCircle size={16} /></a>
+              <a href="https://wa.me/8801890770297" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-brand-gold transition-colors"><Send size={16} /></a>
            </div>
         </div>
 

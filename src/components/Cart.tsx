@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ShoppingBag, Trash2, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { X, ShoppingBag, Trash2, ShieldCheck, CheckCircle2, Send } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface CartProps {
@@ -236,6 +236,16 @@ export default function Cart({ isOpen, onClose, cartItems, onRemoveItem, onClear
                     <p className="font-sans text-xs sm:text-sm text-gray-300 leading-relaxed max-w-sm font-light">
                       Your acquisition request has been safely captured on our ledger system. Our White-glove concierge will message you shortly to finalize shipping details.
                     </p>
+
+                    <a
+                      href={`https://wa.me/8801890770297?text=${encodeURIComponent("Assalamu alaikum, I just placed an order (Invoice #JA-2026-9042). Please confirm my order details. JazakAllah.")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center space-x-2 w-full max-w-sm py-3 bg-[#25D366] text-white hover:bg-[#1ebe5a] text-[11px] tracking-[0.2em] font-semibold uppercase rounded transition-all duration-500 focus:outline-none cursor-pointer shadow-md hover:shadow-lg"
+                    >
+                      <Send size={15} />
+                      <span>Confirm Order on WhatsApp</span>
+                    </a>
                   </div>
 
                   <button

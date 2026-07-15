@@ -240,10 +240,10 @@ export default function Navbar({
                   "Where Faith Meets Art"
                 </p>
                 <div className="flex justify-center space-x-6 text-brand-gold">
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  <a href="https://instagram.com/jarin_atelier" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                     <Instagram size={18} />
                   </a>
-                  <a href="https://wa.me/something" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  <a href="https://wa.me/8801890770297" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                     <Send size={18} />
                   </a>
                 </div>

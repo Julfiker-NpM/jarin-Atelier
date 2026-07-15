@@ -7,7 +7,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { ArrowDown, Compass, Sparkles } from 'lucide-react';
 import Logo from './Logo';
-import ArtworkFrame from './ArtworkFrame';
 
 interface HeroProps {
   onExploreClick: () => void;
@@ -87,26 +86,31 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
           }}
           className="w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] shrink-0"
         >
-          {/* Large museum-standard gilded centerpiece frame */}
-          <div className="relative group p-4 sm:p-6 bg-[#0c0c0c] rounded-2xl border border-brand-gold/15 shadow-[0_25px_60px_rgba(0,0,0,0.9)] transition-all duration-700 hover:border-brand-gold/30">
-            {/* Spotlight reflection glare */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent opacity-80 pointer-events-none z-10" />
-            
-            <ArtworkFrame
-              label="Al-Mihrab Masterpiece"
-              arabicLabel="بسم الله الرحمن الرحيم"
-              aspectRatio="portrait"
-              glowColor="rgba(200, 161, 90, 0.22)"
-              className="rounded-lg shadow-[0_15px_35px_rgba(0,0,0,0.7)]"
-            />
-            
+          {/* Large gilded centerpiece — clean gallery image, premium & uncluttered */}
+          <div className="relative group p-3 sm:p-4 bg-white rounded-2xl border border-brand-gold/35 shadow-[0_30px_70px_-22px_rgba(181,135,60,0.40)] transition-all duration-700 hover:border-brand-gold/60">
+            {/* Soft light sheen across the card */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/60 to-transparent opacity-70 pointer-events-none z-10" />
+
+            <div className="relative overflow-hidden rounded-xl bg-brand-black">
+              <img
+                src="/assets/art-01.png"
+                alt="Jarin Atelier — Surah An-Nur gold-gilded masterpiece"
+                referrerPolicy="no-referrer"
+                loading="eager"
+                decoding="async"
+                className="w-full h-auto object-cover rounded-xl transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+              />
+              {/* Hairline gold inner frame line */}
+              <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-brand-gold/45 pointer-events-none" />
+            </div>
+
             {/* Museum brass nameplate detail under the frame */}
             <div className="mt-4 sm:mt-5 py-2 px-4 bg-gradient-to-r from-brand-gold/5 via-brand-gold/15 to-brand-gold/5 border border-brand-gold/35 rounded text-center shadow-inner">
               <p className="font-serif text-[10px] tracking-[0.3em] text-brand-gold font-bold uppercase">
                 JARIN ATELIER • EXCLUSIVITY
               </p>
-              <p className="text-[8px] text-gray-400 font-sans uppercase tracking-widest mt-0.5">
-                Archival Gold-Gilded Soot Ink On Pure Belgian Linen
+              <p className="text-[8px] text-gray-500 font-sans uppercase tracking-widest mt-0.5">
+                Archival Gold-Gilded Calligraphy On Belgian Linen
               </p>
             </div>
           </div>
@@ -144,7 +148,7 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
              transition={{ delay: 0.95, duration: 1.5 }}
-             className="font-sans text-base sm:text-lg text-[#C9C3B8] tracking-wide font-light leading-relaxed mb-10 max-w-md lg:max-w-lg"
+              className="font-sans text-base sm:text-lg text-brand-muted tracking-wide font-light leading-relaxed mb-10 max-w-md lg:max-w-lg"
            >
              Timeless hand-gilded calligraphy, crafted as heirloom masterpieces for the modern sanctuary.
            </motion.p>
