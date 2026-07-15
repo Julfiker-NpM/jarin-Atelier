@@ -5,11 +5,10 @@
 
 import React, { useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
+import { OrbitControls, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { GALLERY_ITEMS } from '../data';
 import { GalleryItem } from '../types';
-import ArtworkFrame from './ArtworkFrame';
 import { 
   ZoomIn, 
   RotateCcw, 
@@ -207,19 +206,63 @@ interface GalleryWallProps {
   onSelect: () => void;
 }
 
+// In-scene textured artwork plane (reliable alternative to HTML-in-3D)
+function ArtworkPlane({ item, isSelected, hovered, onSelect }: {
+  item: GalleryItem;
+  isSelected: boolean;
+  hovered: boolean;
+  onSelect: () => void;
+}) {
+  const texture = useTexture(item.imageUrl);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const scale = isSelected ? 1.04 : hovered ? 1.02 : 1.0;
+
+  return (
+    <group position={[0, 0, 0.15]} scale={scale}>
+      {/* Gilded frame backing */}
+      <mesh position={[0, 0, -0.02]}>
+        <planeGeometry args={[3.92, 3.92]} />
+        <meshStandardMaterial
+          color={isSelected ? '#E4C886' : '#C8A15A'}
+          metalness={0.85}
+          roughness={0.25}
+        />
+      </mesh>
+      {/* Artwork surface (unlit so the piece reads at full fidelity) */}
+      <mesh
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect();
+        }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation();
+          document.body.style.cursor = 'default';
+        }}
+      >
+        <planeGeometry args={[3.55, 3.55]} />
+        <meshBasicMaterial map={texture} toneMapped={false} />
+      </mesh>
+    </group>
+  );
+}
+
 function GalleryWall({ item, position, rotationY, isSelected, onSelect }: GalleryWallProps) {
   const wallRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
   return (
-    <group 
-      ref={wallRef} 
-      position={position} 
+    <group
+      ref={wallRef}
+      position={position}
       rotation={[0, -rotationY, 0]}
     >
       {/* Physical Partition Wall Mesh */}
-      <mesh 
-        castShadow 
+      <mesh
+        castShadow
         receiveShadow
         onClick={(e) => {
           e.stopPropagation();
@@ -237,9 +280,9 @@ function GalleryWall({ item, position, rotationY, isSelected, onSelect }: Galler
         }}
       >
         <boxGeometry args={[4.2, 5.2, 0.25]} />
-        <meshStandardMaterial 
-          color={isSelected ? "#101010" : "#141414"} 
-          roughness={0.8} 
+        <meshStandardMaterial
+          color={isSelected ? "#101010" : "#141414"}
+          roughness={0.8}
           metalness={0.15}
         />
       </mesh>
@@ -247,10 +290,10 @@ function GalleryWall({ item, position, rotationY, isSelected, onSelect }: Galler
       {/* Gilded architectural gold border lining the wall */}
       <mesh position={[0, 0, 0.13]}>
         <boxGeometry args={[4.22, 5.22, 0.01]} />
-        <meshStandardMaterial 
-          color="#C8A15A" 
-          metalness={0.8} 
-          roughness={0.3} 
+        <meshStandardMaterial
+          color="#C8A15A"
+          metalness={0.8}
+          roughness={0.3}
           wireframe={true}
         />
       </mesh>
@@ -258,38 +301,10 @@ function GalleryWall({ item, position, rotationY, isSelected, onSelect }: Galler
       {/* Spotlighting unit */}
       <SpotlightFixture position={position} rotationY={rotationY} />
 
-      {/* Interactive 3D HTML Artwork Plane */}
-      <group position={[0, 0, 0.14]}>
-        <Html
-          transform
-          distanceFactor={1.35}
-          occlude="blending"
-          scale={0.004}
-          pointerEvents="auto"
-        >
-          <div 
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelect();
-            }}
-            className="w-[450px] select-none cursor-pointer p-1"
-          >
-            <ArtworkFrame
-              label={item.imageLabel}
-              arabicLabel={item.arabicTitle}
-              aspectRatio="square"
-              imageUrl={item.imageUrl}
-              className={`rounded-xl transition-all duration-500 shadow-2xl ${
-                isSelected 
-                  ? 'border-2 border-brand-gold shadow-[0_0_35px_rgba(200,161,90,0.45)] scale-[1.015]' 
-                  : hovered
-                    ? 'border border-brand-gold/40 shadow-[0_0_20px_rgba(200,161,90,0.2)]'
-                    : 'border border-white/5'
-              }`}
-            />
-          </div>
-        </Html>
-      </group>
+      {/* Interactive 3D Artwork Plane */}
+      <Suspense fallback={null}>
+        <ArtworkPlane item={item} isSelected={isSelected} hovered={hovered} onSelect={onSelect} />
+      </Suspense>
 
       {/* Wall Shadow Plane */}
       <mesh position={[0, -2.59, 0]} rotation={[-Math.PI / 2, 0, 0]}>
