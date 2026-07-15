@@ -4,16 +4,14 @@
  */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Compass, Mail, Send, Sparkles, MapPin, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import Logo from './Logo';
 
-interface FooterProps {
-  setCurrentTab: (tab: string) => void;
-}
-
-export default function Footer({ setCurrentTab }: FooterProps) {
+export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,8 +22,8 @@ export default function Footer({ setCurrentTab }: FooterProps) {
     }
   };
 
-  const handleLinkClick = (tabId: string) => {
-    setCurrentTab(tabId);
+  const handleLinkClick = (path: string) => {
+    navigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -43,7 +41,7 @@ export default function Footer({ setCurrentTab }: FooterProps) {
           
           {/* Column 1: Core Logo and Tagline */}
           <div className="space-y-6 flex flex-col items-start">
-            <div className="w-48 cursor-pointer" onClick={() => handleLinkClick('home')}>
+            <div className="w-48 cursor-pointer" onClick={() => handleLinkClick('/')}>
               <Logo size="custom" customHeight={120} showText={true} />
             </div>
             <p className="text-gray-400 text-xs sm:text-sm font-light leading-relaxed max-w-xs pt-2">
@@ -60,32 +58,32 @@ export default function Footer({ setCurrentTab }: FooterProps) {
             
             <ul className="space-y-3 text-xs sm:text-sm font-sans font-light text-gray-400">
               <li>
-                <button onClick={() => handleLinkClick('home')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
+                <button onClick={() => handleLinkClick('/')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
                   Exhibition Home
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('shop')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
+                <button onClick={() => handleLinkClick('/shop')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
                   The Boutique
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('gallery')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
+                <button onClick={() => handleLinkClick('/gallery')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
                   The Digital Salon Gallery
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('custom-order')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
+                <button onClick={() => handleLinkClick('/bespoke')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
                   Bespoke Commission Form
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('about')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
+                <button onClick={() => handleLinkClick('/about')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
                   Atelier Heritage
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('contact')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
+                <button onClick={() => handleLinkClick('/contact')} className="hover:text-brand-gold transition-colors focus:outline-none cursor-pointer">
                   Atelier Contact Channels
                 </button>
               </li>

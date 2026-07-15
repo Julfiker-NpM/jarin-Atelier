@@ -4,54 +4,48 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, Heart, MapPin, Phone, Instagram, Send } from 'lucide-react';
+import { Menu, X, ShoppingBag, Heart, Instagram, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from './Logo';
+import { useAtelier } from '../atelier-context';
 
-interface NavbarProps {
-  currentTab: string;
-  setCurrentTab: (tab: string) => void;
-  cartCount: number;
-  wishlistCount: number;
-  onOpenCart: () => void;
-  onOpenWishlist: () => void;
+interface NavLinkDef {
+  id: string;
+  label: string;
+  path: string;
 }
 
-export default function Navbar({
-  currentTab,
-  setCurrentTab,
-  cartCount,
-  wishlistCount,
-  onOpenCart,
-  onOpenWishlist,
-}: NavbarProps) {
+const NAV_LINKS: NavLinkDef[] = [
+  { id: 'home', label: 'Home', path: '/' },
+  { id: 'shop', label: 'Boutique', path: '/shop' },
+  { id: 'gallery', label: 'Exhibitions', path: '/gallery' },
+  { id: 'custom-order', label: 'Bespoke Order', path: '/bespoke' },
+  { id: 'about', label: 'Our Story', path: '/about' },
+  { id: 'contact', label: 'Atelier Contact', path: '/contact' },
+];
+
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { cartCount, wishlistIds, openCart, openWishlist } = useAtelier();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'shop', label: 'Boutique' },
-    { id: 'gallery', label: 'Exhibitions' },
-    { id: 'custom-order', label: 'Bespoke Order' },
-    { id: 'about', label: 'Our Story' },
-    { id: 'contact', label: 'Atelier Contact' },
-  ];
+  const isActive = (path: string) =>
+    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
-  const handleNavClick = (tabId: string) => {
-    setCurrentTab(tabId);
+  const handleNavClick = (path: string) => {
     setIsMobileMenuOpen(false);
+    navigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -77,7 +71,7 @@ export default function Navbar({
             <div className="flex items-center md:hidden">
               <button
                 id="mobile-menu-btn"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => setIsMobileMenuOpen((v) => !v)}
                 className="text-brand-cream hover:text-brand-gold transition-colors focus:outline-none p-2"
                 aria-label="Toggle Menu"
               >
@@ -87,33 +81,32 @@ export default function Navbar({
 
             {/* Left Section (Desktop): Navigation Links */}
             <nav className="hidden md:flex space-x-9 lg:space-x-12">
-              {navLinks.slice(0, 3).map((link) => (
+              {NAV_LINKS.slice(0, 3).map((link) => (
                  <button
                    id={`nav-link-${link.id}`}
                    key={link.id}
-                   onClick={() => handleNavClick(link.id)}
+                   onClick={() => handleNavClick(link.path)}
                    className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.22em] font-medium focus:outline-none cursor-pointer"
                  >
-                   <span className={`nav-link-lux ${currentTab === link.id ? 'is-active' : ''}`}>
+                   <span className={`nav-link-lux ${isActive(link.path) ? 'is-active' : ''}`}>
                      {link.label}
                    </span>
-                  {currentTab === link.id && (
-                    <motion.div
-                      layoutId="activeNavLine"
-                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-brand-gold"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </button>
-              ))}
+                   {isActive(link.path) && (
+                     <motion.div
+                       layoutId="activeNavLine"
+                       className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-brand-gold"
+                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                     />
+                   )}
+                 </button>
+               ))}
             </nav>
 
             {/* Center Section: Core Brand Logo */}
             <div 
               className="flex justify-center items-center cursor-pointer transition-transform duration-500 hover:scale-102"
-              onClick={() => handleNavClick('home')}
+              onClick={() => handleNavClick('/')}
             >
-              {/* Display a compact, crisp version of the official Jarin Atelier logo in Navbar */}
               <div className="w-40 sm:w-44 flex items-center justify-center">
                 <Logo size="custom" customHeight={75} showText={true} />
               </div>
@@ -121,20 +114,20 @@ export default function Navbar({
 
             {/* Right Section (Desktop): Navigation + Icons */}
             <div className="flex items-center space-x-4 sm:space-x-6 lg:space-x-8">
-              
-              {/* Other Navigation Links */}
-               <nav className="hidden md:flex space-x-9 lg:space-x-12 mr-2">
-                 {navLinks.slice(3).map((link) => (
-                 <button
-                   id={`nav-link-${link.id}`}
-                   key={link.id}
-                   onClick={() => handleNavClick(link.id)}
-                   className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.22em] font-medium focus:outline-none cursor-pointer"
-                 >
-                   <span className={`nav-link-lux ${currentTab === link.id ? 'is-active' : ''}`}>
-                     {link.label}
-                   </span>
-                    {currentTab === link.id && (
+               
+               {/* Other Navigation Links */}
+                <nav className="hidden md:flex space-x-9 lg:space-x-12 mr-2">
+                  {NAV_LINKS.slice(3).map((link) => (
+                  <button
+                    id={`nav-link-${link.id}`}
+                    key={link.id}
+                    onClick={() => handleNavClick(link.path)}
+                    className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.22em] font-medium focus:outline-none cursor-pointer"
+                  >
+                    <span className={`nav-link-lux ${isActive(link.path) ? 'is-active' : ''}`}>
+                      {link.label}
+                    </span>
+                    {isActive(link.path) && (
                       <motion.div
                         layoutId="activeNavLine"
                         className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-brand-gold"
@@ -148,14 +141,14 @@ export default function Navbar({
               {/* Wishlist Button */}
               <button
                 id="wishlist-btn"
-                onClick={onOpenWishlist}
+                onClick={openWishlist}
                 className="relative text-brand-cream hover:text-brand-gold transition-colors p-2 focus:outline-none cursor-pointer"
                 aria-label="Wishlist"
               >
-                <Heart size={20} className={wishlistCount > 0 ? 'fill-brand-gold text-brand-gold' : ''} />
-                {wishlistCount > 0 && (
+                <Heart size={20} className={wishlistIds.length > 0 ? 'fill-brand-gold text-brand-gold' : ''} />
+                {wishlistIds.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-brand-gold text-brand-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-brand-black">
-                    {wishlistCount}
+                    {wishlistIds.length}
                   </span>
                 )}
               </button>
@@ -163,7 +156,7 @@ export default function Navbar({
               {/* Shopping Cart Button */}
               <button
                 id="cart-btn"
-                onClick={onOpenCart}
+                onClick={openCart}
                 className="relative text-brand-cream hover:text-brand-gold transition-colors p-2 focus:outline-none cursor-pointer"
                 aria-label="Shopping Cart"
               >
@@ -216,17 +209,17 @@ export default function Navbar({
 
                 {/* Navigation Links */}
                 <div className="mt-8 space-y-6">
-                  {navLinks.map((link, i) => (
+                  {NAV_LINKS.map((link, i) => (
                     <motion.button
                       id={`mobile-nav-link-${link.id}`}
                       key={link.id}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      onClick={() => handleNavClick(link.id)}
+                      onClick={() => handleNavClick(link.path)}
                       className="block w-full text-left font-serif text-lg tracking-[0.2em] uppercase transition-colors py-1 focus:outline-none"
                     >
-                      <span className={currentTab === link.id ? 'text-brand-gold border-b border-brand-gold pb-1' : 'text-gray-300 hover:text-white'}>
+                      <span className={isActive(link.path) ? 'text-brand-gold border-b border-brand-gold pb-1' : 'text-gray-300 hover:text-white'}>
                         {link.label}
                       </span>
                     </motion.button>

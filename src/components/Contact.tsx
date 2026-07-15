@@ -4,7 +4,6 @@
  */
 
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
 import { MessageSquare, Phone, Mail, MapPin, Send, MessageCircle, Instagram, Facebook, ShieldAlert } from 'lucide-react';
 import Logo from './Logo';
 
@@ -259,50 +258,44 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Luxury Interactive Vector Map Placeholder */}
+            {/* Real interactive Google Maps embed for the atelier */}
             <div className="relative border border-white/5 rounded-2xl bg-brand-black p-4 shadow-[0_15px_40px_rgba(0,0,0,0.6)] overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-transparent to-brand-black/20 z-10 pointer-events-none" />
-              
-              {/* Premium Vector Stylized Map Card */}
-              <div className="relative h-64 rounded-xl overflow-hidden bg-[#181818] border border-white/5 flex flex-col items-center justify-center select-none">
-                
-                {/* SVG Luxury stylized street outline grids */}
-                <svg
-                  viewBox="0 0 500 250"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="absolute inset-0 opacity-20 w-full h-full object-cover"
-                >
-                  {/* Street grids lines */}
-                  <line x1="0" y1="50" x2="500" y2="50" stroke="#C8A15A" strokeWidth="0.8" />
-                  <line x1="0" y1="120" x2="500" y2="120" stroke="#C8A15A" strokeWidth="1.2" />
-                  <line x1="0" y1="190" x2="500" y2="190" stroke="#C8A15A" strokeWidth="0.8" />
-                  
-                  <line x1="100" y1="0" x2="100" y2="250" stroke="#C8A15A" strokeWidth="0.8" />
-                  <line x1="250" y1="0" x2="250" y2="250" stroke="#C8A15A" strokeWidth="1.5" />
-                  <line x1="400" y1="0" x2="400" y2="250" stroke="#C8A15A" strokeWidth="0.8" />
-                  
-                  <circle cx="250" cy="120" r="45" stroke="#C8A15A" strokeWidth="1" strokeDasharray="5 3" />
-                  <circle cx="250" cy="120" r="2" fill="#C8A15A" />
-                </svg>
+              <div className="relative h-64 rounded-xl overflow-hidden border border-white/5">
+                <iframe
+                  title="Jarin Atelier — Uttara, Dhaka"
+                  src="https://www.google.com/maps?q=House%2038%2C%20Road%2018%2C%20Sector%2014%2C%20Uttara%2C%20Dhaka%201230&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full border-0"
+                />
+                {/* Subtle gold inner edge so the map sits in the luxury frame */}
+                <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-brand-gold/30 pointer-events-none" />
+              </div>
 
-                {/* Map Center Spotlight indicator pin */}
-                <div className="relative z-10 flex flex-col items-center justify-center">
-                  <motion.div
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-                    className="w-10 h-10 rounded-full border border-brand-gold/60 bg-brand-black flex items-center justify-center text-brand-gold shadow-lg"
-                  >
+              <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2.5 rounded-lg border border-brand-gold/15 bg-[#121212] text-brand-gold">
                     <MapPin size={18} />
-                  </motion.div>
-                  
-                  {/* Ripple effect rings */}
-                  <span className="absolute top-4 w-12 h-12 bg-brand-gold/15 border border-brand-gold/30 rounded-full animate-ping pointer-events-none" />
-
-                  <span className="font-serif text-xs text-white font-medium mt-3 tracking-widest uppercase bg-brand-black/90 px-3 py-1.5 border border-brand-gold/20 rounded shadow-md">
-                    Jarin Atelier London
-                  </span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-gray-500 uppercase tracking-widest block font-sans font-semibold">
+                      Atelier Address
+                    </span>
+                    <span className="font-serif text-sm text-white mt-1 block">
+                      House 38, Road 18, Sector 14, Uttara, Dhaka 1230
+                    </span>
+                  </div>
                 </div>
+
+                <a
+                  href="https://www.google.com/maps?q=House%2038%2C%20Road%2018%2C%20Sector%2014%2C%20Uttara%2C%20Dhaka%201230"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 px-5 py-2.5 bg-brand-gold text-brand-black hover:bg-white text-[11px] tracking-[0.2em] font-semibold uppercase rounded transition-all duration-500 focus:outline-none cursor-pointer shadow-md hover:shadow-lg"
+                >
+                  <MapPin size={14} />
+                  <span>Open in Maps</span>
+                </a>
               </div>
             </div>
           </div>
