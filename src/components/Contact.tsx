@@ -78,7 +78,7 @@ export default function Contact() {
           <div className="w-44 mb-6">
             <Logo size="custom" customHeight={150} showText={true} />
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
+          <h2 className="reveal font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
             Contact Jarin Atelier
           </h2>
           <div className="w-16 h-[1.5px] bg-brand-gold mx-auto" />

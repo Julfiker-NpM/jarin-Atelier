@@ -85,7 +85,7 @@ export default function Shop({ onAddToCart, onAddToWishlist, wishlistIds }: Shop
                   <span>THE BOUTIQUE</span>
                   <Sparkles size={12} />
                 </div>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
+                <h2 className="reveal font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
                   Curated Masterpieces
                 </h2>
                 <div className="w-16 h-[1.5px] bg-brand-gold mx-auto" />

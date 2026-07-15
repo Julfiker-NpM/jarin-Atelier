@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Compass, Mail, Send, Sparkles, MapPin, Phone, MessageCircle, Instagram } from 'lucide-react';
+import { Compass, Mail, Send, Sparkles, MapPin, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import Logo from './Logo';
 
 interface FooterProps {
@@ -33,6 +33,8 @@ export default function Footer({ setCurrentTab }: FooterProps) {
 
   return (
     <footer id="luxury-footer" className="bg-brand-black text-brand-cream border-t border-white/5 pt-20 pb-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Elegant gold divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent" />
       {/* Background radial spotlight flare */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-[radial-gradient(circle_at_center,rgba(200,161,90,0.06)_0%,transparent_65%)] pointer-events-none" />
 
@@ -156,11 +158,12 @@ export default function Footer({ setCurrentTab }: FooterProps) {
         {/* Bottom copyright details */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] text-gray-500 font-sans font-light">
           <p>© {currentYear} Jarin Atelier. Sacred Traditional Handcrafts. All Rights Reserved.</p>
-          <div className="flex space-x-6 mt-4 sm:mt-0">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Instagram</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Facebook</a>
-            <a href="https://wa.me/something" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">WhatsApp</a>
-          </div>
+           <div className="flex items-center space-x-5 mt-4 sm:mt-0 text-gray-400">
+             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-brand-gold transition-colors"><Instagram size={16} /></a>
+             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-brand-gold transition-colors"><Facebook size={16} /></a>
+             <a href="https://m.me/something" target="_blank" rel="noopener noreferrer" aria-label="Messenger" className="hover:text-brand-gold transition-colors"><MessageCircle size={16} /></a>
+             <a href="https://wa.me/something" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-brand-gold transition-colors"><Send size={16} /></a>
+           </div>
         </div>
 
       </div>

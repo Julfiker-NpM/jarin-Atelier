@@ -86,17 +86,17 @@ export default function Navbar({
             </div>
 
             {/* Left Section (Desktop): Navigation Links */}
-            <nav className="hidden md:flex space-x-6 lg:space-x-8">
+            <nav className="hidden md:flex space-x-9 lg:space-x-12">
               {navLinks.slice(0, 3).map((link) => (
-                <button
-                  id={`nav-link-${link.id}`}
-                  key={link.id}
-                  onClick={() => handleNavClick(link.id)}
-                  className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.2em] font-medium transition-colors focus:outline-none cursor-pointer"
-                >
-                  <span className={currentTab === link.id ? 'text-brand-gold' : 'text-gray-300 hover:text-white'}>
-                    {link.label}
-                  </span>
+                 <button
+                   id={`nav-link-${link.id}`}
+                   key={link.id}
+                   onClick={() => handleNavClick(link.id)}
+                   className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.22em] font-medium focus:outline-none cursor-pointer"
+                 >
+                   <span className={`nav-link-lux ${currentTab === link.id ? 'is-active' : ''}`}>
+                     {link.label}
+                   </span>
                   {currentTab === link.id && (
                     <motion.div
                       layoutId="activeNavLine"
@@ -123,17 +123,17 @@ export default function Navbar({
             <div className="flex items-center space-x-4 sm:space-x-6 lg:space-x-8">
               
               {/* Other Navigation Links */}
-              <nav className="hidden md:flex space-x-6 lg:space-x-8 mr-2">
-                {navLinks.slice(3).map((link) => (
-                  <button
-                    id={`nav-link-${link.id}`}
-                    key={link.id}
-                    onClick={() => handleNavClick(link.id)}
-                    className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.2em] font-medium transition-colors focus:outline-none cursor-pointer"
-                  >
-                    <span className={currentTab === link.id ? 'text-brand-gold' : 'text-gray-300 hover:text-white'}>
-                      {link.label}
-                    </span>
+               <nav className="hidden md:flex space-x-9 lg:space-x-12 mr-2">
+                 {navLinks.slice(3).map((link) => (
+                 <button
+                   id={`nav-link-${link.id}`}
+                   key={link.id}
+                   onClick={() => handleNavClick(link.id)}
+                   className="relative py-2 text-xs lg:text-[13px] uppercase tracking-[0.22em] font-medium focus:outline-none cursor-pointer"
+                 >
+                   <span className={`nav-link-lux ${currentTab === link.id ? 'is-active' : ''}`}>
+                     {link.label}
+                   </span>
                     {currentTab === link.id && (
                       <motion.div
                         layoutId="activeNavLine"

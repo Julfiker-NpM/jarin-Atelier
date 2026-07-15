@@ -23,13 +23,14 @@ export default function Logo({
   const [imageError, setImageError] = useState(false);
 
   // Dimensions based on size (value drives the logo mark height; width is fluid
-  // so the extracted transparent mark keeps its original proportions)
+  // so the extracted transparent mark keeps its original proportions).
+  // Sizes increased ~35% for a more confident, elegant presence.
   const dimensions = {
-    sm: { height: 90 },
-    md: { height: 130 },
-    lg: { height: 190 },
-    xl: { height: 260 },
-    custom: { height: customHeight || 160 },
+    sm: { height: 120 },
+    md: { height: 175 },
+    lg: { height: 255 },
+    xl: { height: 350 },
+    custom: { height: (customHeight || 160) * 1.35 },
   };
 
   const selectedDim = dimensions[size];
@@ -39,15 +40,21 @@ export default function Logo({
   if (!imageError) {
     return (
       <div
-        className={`flex flex-col items-center justify-center ${className}`}
+        className={`relative flex flex-col items-center justify-center px-2 ${className}`}
         style={{ height: selectedDim.height, width: 'auto' }}
       >
+        {/* Subtle golden glow behind the mark so it never disappears into the background */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
+          style={{ width: '72%', height: '58%', background: 'radial-gradient(circle, rgba(200,161,90,0.30), transparent 70%)' }}
+        />
         <img
           src="/assets/logo-mark.png"
           alt="Jarin Atelier"
           referrerPolicy="no-referrer"
           onError={() => setImageError(true)}
-          className="h-full w-auto object-contain transition-opacity duration-500 drop-shadow-[0_6px_18px_rgba(200,161,90,0.18)]"
+          className="relative h-full w-auto object-contain drop-shadow-[0_8px_26px_rgba(200,161,90,0.28)]"
           style={{ maxHeight: customHeight || '100%' }}
         />
       </div>

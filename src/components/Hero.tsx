@@ -128,51 +128,53 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
           </motion.div>
 
           {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-[0.05em] leading-[1.1] mb-6"
-          >
-            Where Faith <span className="italic font-normal text-brand-gold animate-gold-glow">Meets</span> Sacred Art
-          </motion.h1>
+           <motion.h1
+             initial={{ opacity: 0, y: 28 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 0.65, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+             className="font-serif text-[2.75rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-8xl text-white font-light tracking-[0.01em] mb-7"
+           >
+             Where Faith Meets
+             <br />
+             <span className="gold-text font-serif italic font-medium">Art</span>
+           </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ delay: 0.9, duration: 1.5 }}
-            className="font-sans text-sm sm:text-base text-brand-cream/80 tracking-wide font-light leading-relaxed mb-10 max-w-md lg:max-w-none"
-          >
-            Enter a digital sanctuary honoring the timeless heritage of traditional Arabic calligraphy. Each masterpiece is hand-scribed on premium linen, gesso-grounded, and gold-gilded with absolute material integrity.
-          </motion.p>
+           {/* Subtitle */}
+           <motion.p
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 0.95, duration: 1.5 }}
+             className="font-sans text-base sm:text-lg text-[#C9C3B8] tracking-wide font-light leading-relaxed mb-10 max-w-md lg:max-w-lg"
+           >
+             Timeless hand-gilded calligraphy, crafted as heirloom masterpieces for the modern sanctuary.
+           </motion.p>
 
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 w-full px-4 sm:px-0"
-          >
-            {/* Explore Button */}
-            <button
-              id="hero-explore-btn"
-              onClick={onExploreClick}
-              className="group w-full sm:w-auto px-8 py-3.5 bg-brand-gold text-brand-black hover:bg-white text-[12px] tracking-[0.2em] font-bold uppercase rounded transition-all duration-500 shadow-lg hover:shadow-[0_10px_30px_rgba(200,161,90,0.35)] flex items-center justify-center space-x-2 focus:outline-none cursor-pointer"
-            >
-              <Compass size={15} className="transition-transform group-hover:rotate-45 duration-500" />
-              <span>Explore Collection</span>
-            </button>
+           {/* Action Buttons */}
+           <motion.div
+             initial={{ opacity: 0, y: 15 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 1.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+             className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-5 w-full px-4 sm:px-0"
+           >
+             {/* Explore Button */}
+             <button
+               id="hero-explore-btn"
+               onClick={onExploreClick}
+               className="group btn-gold w-full sm:w-auto px-9 py-4 text-[12px] tracking-[0.2em] font-semibold uppercase rounded-full flex items-center justify-center space-x-2 focus:outline-none cursor-pointer"
+             >
+               <Compass size={15} className="transition-transform group-hover:rotate-45 duration-500" />
+               <span>Explore Collection</span>
+             </button>
 
-            {/* Bespoke Button */}
-            <button
-              id="hero-custom-btn"
-              onClick={onCustomClick}
-              className="w-full sm:w-auto px-8 py-3.5 border border-brand-gold/40 text-brand-gold hover:text-brand-black hover:bg-brand-gold hover:border-brand-gold text-[12px] tracking-[0.2em] font-bold uppercase rounded transition-all duration-500 flex items-center justify-center space-x-2 focus:outline-none cursor-pointer"
-            >
-              <span>Custom Commission</span>
-            </button>
-          </motion.div>
+             {/* Bespoke Button */}
+             <button
+               id="hero-custom-btn"
+               onClick={onCustomClick}
+               className="group btn-outline w-full sm:w-auto px-9 py-4 text-[12px] tracking-[0.2em] font-semibold uppercase rounded-full flex items-center justify-center space-x-2 focus:outline-none cursor-pointer"
+             >
+               <span>Commission Custom Artwork</span>
+             </button>
+           </motion.div>
 
         </div>
       </div>

@@ -33,26 +33,26 @@ export default function ArtworkFrame({
   return (
     <motion.div
       className={`relative w-full ${aspectClasses[aspectRatio]} overflow-hidden select-none group ${className}`}
-      whileHover={{ y: -8, scale: 1.015 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -10, scale: 1.02, rotate: -0.4 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* 3D Outer Black Frame Shadow */}
-      <div className="absolute inset-0 bg-brand-black rounded-lg transition-shadow duration-500 group-hover:shadow-[0_20px_50px_rgba(200,161,90,0.12)]" />
+      {/* Soft floating shadow + warm floor glow beneath the framed piece */}
+      <div className="absolute -inset-1 rounded-xl bg-[radial-gradient(60%_50%_at_50%_100%,rgba(200,161,90,0.10),transparent_70%)] blur-xl opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
 
-      {/* Frame Outer Border */}
-      <div className="absolute inset-0 border-[10px] sm:border-[14px] border-brand-black outline outline-1 outline-brand-gold/40 rounded-lg flex flex-col p-1.5 sm:p-3 shadow-inner">
+      {/* Frame Outer Border (matte black with gilded edge) */}
+      <div className="absolute inset-0 border-[10px] sm:border-[14px] border-[#0A0908] outline outline-1 outline-brand-gold/45 rounded-xl flex flex-col p-1.5 sm:p-3 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.75)]">
         
         {/* Inner Gold Matting Border */}
-        <div className="relative w-full h-full border border-brand-gold flex-1 flex flex-col overflow-hidden bg-brand-black canvas-texture">
+        <div className="relative w-full h-full border border-brand-gold/80 flex-1 flex flex-col overflow-hidden bg-brand-black canvas-texture shadow-[inset_0_0_34px_rgba(0,0,0,0.65)]">
           
-          {/* Subtle Studio Spotlight Light Leak */}
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-gold/15 via-transparent to-brand-black/40 pointer-events-none transition-opacity duration-500 group-hover:opacity-80" />
+          {/* Warm studio spotlight from above */}
+          <div className="absolute inset-0 bg-[radial-gradient(85%_60%_at_50%_0%,rgba(255,240,214,0.14),transparent_70%)] pointer-events-none" />
           
           {/* Subtle Ambient Gold Particle Glow */}
           <div 
-            className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-40 pointer-events-none"
+            className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-45 pointer-events-none"
             style={{
-              background: `radial-gradient(circle at 50% 40%, ${glowColor} 0%, transparent 60%)`
+              background: `radial-gradient(circle at 50% 42%, ${glowColor} 0%, transparent 60%)`
             }}
           />
 
@@ -62,10 +62,12 @@ export default function ArtworkFrame({
                 src={imageUrl}
                 alt={label}
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              {/* Subtle luxury vignette to blend the artwork with the gilded frame */}
-              <div className="absolute inset-0 bg-gradient-to-b from-brand-gold/10 via-transparent to-brand-black/40 pointer-events-none" />
+              {/* Luxury vignette to seat the artwork inside the gilded frame */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/55 pointer-events-none" />
             </>
           ) : (
             /* Luxury Vector Calligraphy Placeholder lines (Looks like high-end abstract calligraphy art) */
@@ -120,27 +122,30 @@ export default function ArtworkFrame({
             </div>
           )}
 
+          {/* Glass reflection sheen (shifts gently on hover) */}
+          <div className="absolute inset-0 glass-reflect opacity-50 transition-transform duration-700 ease-out group-hover:translate-x-3 pointer-events-none" />
+
           {/* Arabic Label overlay (Amiri Font) */}
           {arabicLabel && (
             <div className="absolute top-4 left-0 right-0 text-center pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
-              <span className="font-arabic text-sm tracking-widest text-brand-gold/80 block">
+              <span className="font-arabic text-sm tracking-widest text-brand-gold/80 block drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                 {arabicLabel}
               </span>
             </div>
           )}
 
           {/* Elegant Overlay Museum Placard (Centered or bottom-center plate) */}
-          <div className="absolute bottom-4 left-4 right-4 bg-brand-black/85 backdrop-blur-md border border-brand-gold/25 py-2.5 px-3 flex flex-col items-center justify-center rounded transition-all duration-500 group-hover:border-brand-gold/50 group-hover:bg-brand-black/95">
+          <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-md border border-brand-gold/25 py-2.5 px-3 flex flex-col items-center justify-center rounded transition-all duration-500 group-hover:border-brand-gold/55">
             <span className="font-serif text-xs text-brand-gold tracking-[0.25em] uppercase font-semibold text-center">
               {label}
             </span>
             <span className="text-[9px] text-gray-400 tracking-wider mt-0.5 uppercase font-sans text-center">
-              Museum Standard Exhibition
+              Handcrafted Masterpiece
             </span>
           </div>
 
           {/* Premium Metallic Shine Effect on Hover */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_3s_infinite] pointer-events-none" />
         </div>
       </div>
       

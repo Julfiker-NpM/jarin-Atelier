@@ -10,6 +10,7 @@ import Hero from './components/Hero';
 import Featured from './components/Featured';
 import About from './components/About';
 import WhyChooseUs from './components/WhyChooseUs';
+import SocialProof from './components/SocialProof';
 import Gallery from './components/Gallery';
 import CustomOrder from './components/CustomOrder';
 import Shop from './components/Shop';
@@ -197,11 +198,12 @@ export default function App() {
                       wishlistIds={wishlistIds}
                       onViewAllClick={() => setCurrentTab('shop')}
                     />
-                    <About />
-                    <WhyChooseUs />
-                    <Testimonials />
-                    <FAQ />
-                    <Contact />
+                     <About />
+                     <WhyChooseUs />
+                     <SocialProof />
+                     <Testimonials />
+                     <FAQ />
+                     <Contact />
                   </motion.div>
                 )}
 

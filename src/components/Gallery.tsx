@@ -59,7 +59,7 @@ export default function Gallery() {
             <Sparkles size={12} />
           </div>
           
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
+          <h2 className="reveal font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
             The Digital Salon
           </h2>
           
@@ -139,29 +139,29 @@ export default function Gallery() {
               </div>
             </div>
 
-            {/* Luxury Masonry Layout Grid */}
+            {/* Luxury Gallery Wall — asymmetrical masonry composition */}
             <motion.div
-              layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="columns-1 sm:columns-2 lg:columns-3 gap-8 [column-fill:_balance]"
             >
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
+            {filteredItems.map((item, idx) => {
+              const wallAspect = (['square', 'portrait', 'landscape', 'square', 'portrait', 'landscape'] as const)[idx % 6];
+              return (
               <motion.div
                 id={`gallery-card-${item.id}`}
                 key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="group flex flex-col justify-between bg-[#121212]/50 border border-white/5 rounded-xl p-5 hover:border-brand-gold/20 transition-all duration-500 cursor-zoom-in"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="group break-inside-avoid mb-8 cursor-zoom-in"
                 onClick={() => handleOpenLightbox(item)}
               >
-                <div className="relative mb-5 overflow-hidden">
+                <div className="relative overflow-hidden rounded-xl mb-4">
                   <ArtworkFrame
                     label={item.imageLabel}
                     arabicLabel={item.arabicTitle}
-                    aspectRatio="square"
+                    aspectRatio={wallAspect}
                     imageUrl={item.imageUrl}
                   />
                   
@@ -198,7 +198,8 @@ export default function Gallery() {
                   </p>
                 </div>
               </motion.div>
-            ))}
+            );
+          })}
           </AnimatePresence>
         </motion.div>
       </>
@@ -304,9 +305,10 @@ export default function Gallery() {
                   </span>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </motion.div>
+            )
+          }
+          </AnimatePresence>
 
       </div>
     </section>

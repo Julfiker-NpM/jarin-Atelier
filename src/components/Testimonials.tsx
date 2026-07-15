@@ -26,7 +26,7 @@ export default function Testimonials() {
             <Quote size={12} />
             <span>COLLECTOR VOICE</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
+          <h2 className="reveal font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wide font-light mb-4">
             Words of Devoted Appreciation
           </h2>
           <div className="w-16 h-[1.5px] bg-brand-gold mx-auto" />
