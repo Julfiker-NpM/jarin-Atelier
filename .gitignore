@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Original source images (copied into public/assets for the app)
+assets/
