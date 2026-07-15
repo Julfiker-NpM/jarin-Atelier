@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ZoomIn, ZoomOut, X, Sparkles, SlidersHorizontal, Info, Compass } from 'lucide-react';
 import { GALLERY_ITEMS } from '../data';
@@ -11,11 +11,46 @@ import { GalleryItem } from '../types';
 import ArtworkFrame from './ArtworkFrame';
 import ThreeGallery from './ThreeGallery';
 
+// Gracefully fall back to the 2D grid when WebGL is unavailable
+// (headless/old browsers, GPU blocklist, etc.) so the salon never
+// renders a broken 3D canvas.
+function isWebGLAvailable(): boolean {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    );
+  } catch {
+    return false;
+  }
+}
+
 export default function Gallery() {
-  const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
+  const [viewMode, setViewMode] = useState<'3d' | '2d'>(
+    isWebGLAvailable() ? '3d' : '2d'
+  );
   const [activeFilter, setActiveFilter] = useState<'All' | 'Newest' | 'Popular' | 'Wedding' | 'Islamic' | 'Canvas'>('All');
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [zoomScale, setZoomScale] = useState(1);
+
+  // Lock document scroll while the lightbox (a fixed modal) is open so the
+  // page behind can't scroll independently of the pinned subject. We also
+  // compensate for the removed scrollbar width to avoid a layout jump.
+  useEffect(() => {
+    if (!selectedItem) return;
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const prevOverflow = document.body.style.overflow;
+    const prevPadding = document.body.style.paddingRight;
+    document.body.style.overflow = 'hidden';
+    if (scrollBarWidth > 0) {
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    }
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPadding;
+    };
+  }, [selectedItem]);
 
   const filteredItems = activeFilter === 'All'
     ? GALLERY_ITEMS
@@ -266,7 +301,7 @@ export default function Gallery() {
               </div>
 
               {/* Lightbox Mid: The Masterpiece display stage */}
-              <div className="flex-1 flex items-center justify-center p-6 overflow-hidden relative">
+              <div className="flex-1 flex items-center justify-center p-6 overflow-y-auto overscroll-contain relative">
                 <motion.div
                   className="w-full max-w-2xl max-h-[75vh] flex items-center justify-center p-2"
                   style={{ scale: zoomScale }}

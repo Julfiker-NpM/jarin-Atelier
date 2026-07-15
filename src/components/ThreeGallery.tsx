@@ -28,17 +28,38 @@ import {
 // Radius of the circular gallery hall
 const GALLERY_RADIUS = 7.0;
 
-// Camera Controller that smoothly glides camera and orbit controls target
+// Vertical center of every artwork. The wall group is nested inside an outer
+// group offset by this amount (see the circular arrangement below), so the
+// artwork's world-space center sits at exactly this Y. The camera controller
+// and the arrangement MUST agree on this value or pieces render off-center.
+const ARTWORK_Y = 2.6;
+
+// Camera Controller that smoothly glides the camera + orbit target WHILE a
+// focus transition is active. Outside of a transition it intentionally does
+// nothing, leaving OrbitControls (manual drag) and AutoOrbit in full
+// control of the camera — this prevents the two writers from fighting.
 interface CameraControllerProps {
   selectedItem: GalleryItem | null;
   items: GalleryItem[];
   controlsRef: React.RefObject<any>;
+  isTransitioning: boolean;
+  setIsTransitioning: (value: boolean) => void;
 }
 
-function CameraController({ selectedItem, items, controlsRef }: CameraControllerProps) {
+function CameraController({
+  selectedItem,
+  items,
+  controlsRef,
+  isTransitioning,
+  setIsTransitioning,
+}: CameraControllerProps) {
   const { camera } = useThree();
 
   useFrame(() => {
+    // OrbitControls (drag) and AutoOrbit own the camera unless we are
+    // actively gliding to or from a focused masterpiece.
+    if (!isTransitioning) return;
+
     const targetCamPos = new THREE.Vector3();
     const targetLookAt = new THREE.Vector3();
 
@@ -48,13 +69,15 @@ function CameraController({ selectedItem, items, controlsRef }: CameraController
         const theta = (index / items.length) * Math.PI * 2;
         const ax = GALLERY_RADIUS * Math.cos(theta);
         const az = GALLERY_RADIUS * Math.sin(theta);
-        const ay = 1.7; // Artwork center eye-level height
 
-        // Stand closer to the artwork, looking straight at it
-        // The face points to center, so camera should be on the ray from artwork to center.
-        const focusDistanceRatio = 0.55; // 55% of the distance from center (approx 3.8 units away)
-        targetCamPos.set(ax * focusDistanceRatio, ay, az * focusDistanceRatio);
-        targetLookAt.set(ax, ay, az);
+        // Stand straight-on at the artwork's vertical center (ARTWORK_Y) so the
+        // piece is framed dead-center rather than above/below the crosshair.
+        const focusDistanceRatio = 0.55; // ~55% of the radius from center
+        targetCamPos.set(ax * focusDistanceRatio, ARTWORK_Y, az * focusDistanceRatio);
+        targetLookAt.set(ax, ARTWORK_Y, az);
+      } else {
+        targetCamPos.set(0, 3.2, 9.5);
+        targetLookAt.set(0, 1.2, 0);
       }
     } else {
       // Default cinematic panoramic bird's-eye view
@@ -62,12 +85,17 @@ function CameraController({ selectedItem, items, controlsRef }: CameraController
       targetLookAt.set(0, 1.2, 0);
     }
 
-    // Smooth lerping (damping factor ~0.06 for soft, cinematic glide)
-    camera.position.lerp(targetCamPos, 0.06);
+    // Smooth lerping (damping factor ~0.08 for a soft, cinematic glide)
+    camera.position.lerp(targetCamPos, 0.08);
 
     if (controlsRef.current) {
-      controlsRef.current.target.lerp(targetLookAt, 0.06);
+      controlsRef.current.target.lerp(targetLookAt, 0.08);
       controlsRef.current.update();
+    }
+
+    // Hand control back to OrbitControls/AutoOrbit once the glide settles
+    if (camera.position.distanceTo(targetCamPos) < 0.05) {
+      setIsTransitioning(false);
     }
   });
 
@@ -78,14 +106,16 @@ function CameraController({ selectedItem, items, controlsRef }: CameraController
 interface AutoOrbitProps {
   active: boolean;
   selectedItem: GalleryItem | null;
+  isTransitioning: boolean;
 }
 
-function AutoOrbit({ active, selectedItem }: AutoOrbitProps) {
+function AutoOrbit({ active, selectedItem, isTransitioning }: AutoOrbitProps) {
   const { camera } = useThree();
   const angleRef = useRef(0);
 
   useFrame((state) => {
-    if (active && !selectedItem) {
+    // Pause while a focus glide is running so the two writers never fight.
+    if (active && !selectedItem && !isTransitioning) {
       angleRef.current += 0.0015; // ultra-slow cinematic rotation
       const radius = 9.5;
       camera.position.x = radius * Math.sin(angleRef.current);
@@ -324,6 +354,8 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [autoTour, setAutoTour] = useState(true);
   const [showHelp, setShowHelp] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const lastItemRef = useRef<GalleryItem | null>(null);
   const controlsRef = useRef<any>(null);
 
   // Turn off auto-tour once the user manually focuses on a masterpiece
@@ -334,35 +366,35 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
   }, [selectedItem]);
 
   const handleResetView = () => {
+    // Glide back to the panoramic view; the camera controller
+    // owns the return animation, so we just flag the transition.
     setSelectedItem(null);
-    if (controlsRef.current) {
-      controlsRef.current.reset();
-    }
+    setIsTransitioning(true);
   };
 
   const handleSelectArtwork = (item: GalleryItem) => {
     setSelectedItem(item);
+    lastItemRef.current = item;
+    setIsTransitioning(true);
   };
 
   const handleNextArtwork = () => {
-    if (!selectedItem) {
-      setSelectedItem(GALLERY_ITEMS[0]);
-      return;
-    }
-    const idx = GALLERY_ITEMS.findIndex(item => item.id === selectedItem.id);
+    const base = lastItemRef.current ?? GALLERY_ITEMS[0];
+    const idx = GALLERY_ITEMS.findIndex(item => item.id === base.id);
     const nextIdx = (idx + 1) % GALLERY_ITEMS.length;
-    setSelectedItem(GALLERY_ITEMS[nextIdx]);
+    handleSelectArtwork(GALLERY_ITEMS[nextIdx]);
   };
 
   const handlePrevArtwork = () => {
-    if (!selectedItem) {
-      setSelectedItem(GALLERY_ITEMS[GALLERY_ITEMS.length - 1]);
-      return;
-    }
-    const idx = GALLERY_ITEMS.findIndex(item => item.id === selectedItem.id);
+    const base = lastItemRef.current ?? GALLERY_ITEMS[GALLERY_ITEMS.length - 1];
+    const idx = GALLERY_ITEMS.findIndex(item => item.id === base.id);
     const prevIdx = (idx - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length;
-    setSelectedItem(GALLERY_ITEMS[prevIdx]);
+    handleSelectArtwork(GALLERY_ITEMS[prevIdx]);
   };
+
+  // Keep the last focused piece visible while the panel slides out,
+  // so its content doesn't vanish a frame before the animation finishes.
+  const shown = selectedItem ?? lastItemRef.current;
 
   return (
     <div className="relative w-full h-[78vh] bg-[#080808] border border-white/5 rounded-2xl overflow-hidden shadow-[inset_0_4px_30px_rgba(0,0,0,0.9)] group/gallery">
@@ -418,7 +450,7 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
         <CentralBench />
 
         {/* Circular Arrangement of Artworks */}
-        <group position={[0, 2.6, 0]}>
+        <group position={[0, ARTWORK_Y, 0]}>
           {GALLERY_ITEMS.map((item, index) => {
             const theta = (index / GALLERY_ITEMS.length) * Math.PI * 2;
             const x = GALLERY_RADIUS * Math.cos(theta);
@@ -437,19 +469,22 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
           })}
         </group>
 
-        {/* Camera lerping controller */}
-        <CameraController 
-          selectedItem={selectedItem} 
-          items={GALLERY_ITEMS} 
-          controlsRef={controlsRef} 
+        {/* Camera gliding controller (only active during a focus transition) */}
+        <CameraController
+          selectedItem={selectedItem}
+          items={GALLERY_ITEMS}
+          controlsRef={controlsRef}
+          isTransitioning={isTransitioning}
+          setIsTransitioning={setIsTransitioning}
         />
 
         {/* Auto rotating script */}
-        <AutoOrbit active={autoTour} selectedItem={selectedItem} />
+        <AutoOrbit active={autoTour} selectedItem={selectedItem} isTransitioning={isTransitioning} />
 
-        {/* Standard Interactive Orbit Controls */}
+        {/* Standard Interactive Orbit Controls (manual drag/zoom) */}
         <OrbitControls
           ref={controlsRef}
+          enabled={!isTransitioning}
           enableDamping
           dampingFactor={0.05}
           maxPolarAngle={Math.PI / 2 - 0.05} // prevent going underneath floor
@@ -477,7 +512,7 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
 
       {/* Help Instructions Overlay */}
       {showHelp && (
-        <div className="absolute top-20 left-4 max-w-xs bg-brand-black/90 backdrop-blur-md border border-white/10 p-4 rounded-xl text-xs space-y-3 pointer-events-auto shadow-2xl transition-all duration-300">
+        <div className="absolute top-20 right-4 max-w-xs bg-brand-black/90 backdrop-blur-md border border-white/10 p-4 rounded-xl text-xs space-y-3 pointer-events-auto shadow-2xl transition-all duration-300">
           <div className="flex items-center justify-between border-b border-white/5 pb-2">
             <span className="font-serif text-brand-gold uppercase tracking-widest font-semibold text-[10px]">
               How to Navigate
@@ -550,7 +585,7 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
       <div className="absolute right-4 top-4 bottom-4 w-80 max-w-[85vw] bg-brand-black/95 backdrop-blur-lg border border-brand-gold/20 rounded-2xl p-5 flex flex-col justify-between pointer-events-auto transition-all duration-500 shadow-2xl translate-x-0 overflow-y-auto"
         style={{ transform: selectedItem ? 'translateX(0)' : 'translateX(calc(100% + 24px))' }}
       >
-        {selectedItem && (
+        {shown && (
           <div className="flex-1 flex flex-col justify-between space-y-4">
             
             {/* Header / Dismiss */}
@@ -560,7 +595,7 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
                   ACTIVE EXHIBITION
                 </span>
                 <span className="text-[10px] text-gray-400 font-sans tracking-widest uppercase">
-                  {selectedItem.imageLabel}
+                  {shown.imageLabel}
                 </span>
               </div>
               <button 
@@ -576,8 +611,8 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
             <div className="space-y-4 flex-1">
               <div className="rounded-lg overflow-hidden border border-white/5 bg-[#121212]/50 aspect-video relative flex items-center justify-center p-2">
                 <img
-                  src={selectedItem.imageUrl}
-                  alt={selectedItem.title}
+                  src={shown.imageUrl}
+                  alt={shown.title}
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   decoding="async"
@@ -588,15 +623,15 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
 
               <div>
                 <h4 className="font-serif text-lg text-white font-medium leading-snug">
-                  {selectedItem.title}
+                  {shown.title}
                 </h4>
-                {selectedItem.arabicTitle && (
+                {shown.arabicTitle && (
                   <p className="font-arabic text-md text-brand-gold mt-1">
-                    {selectedItem.arabicTitle}
+                    {shown.arabicTitle}
                   </p>
                 )}
                 <span className="inline-block mt-1 px-2.5 py-0.5 rounded bg-brand-gold/10 border border-brand-gold/20 text-[9px] text-brand-gold tracking-widest uppercase font-sans">
-                  {selectedItem.category} COLLECTION
+                  {shown.category} COLLECTION
                 </span>
               </div>
 
@@ -606,7 +641,7 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
                   <span>Exhibition Note</span>
                 </span>
                 <p className="text-xs text-gray-300 font-light leading-relaxed">
-                  {selectedItem.description}
+                  {shown.description}
                 </p>
               </div>
             </div>
@@ -623,7 +658,7 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
               
               <button
                 id="showcase-action-examine"
-                onClick={() => onOpenFullResolution(selectedItem)}
+                onClick={() => onOpenFullResolution(shown)}
                 className="px-3 py-1.5 rounded bg-brand-gold text-brand-black text-xs font-semibold hover:bg-brand-gold-dark transition-colors flex items-center space-x-1"
               >
                 <Maximize2 size={12} />
