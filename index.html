@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="speedforge-verification" content="RQbNWhNgjZI9NL4mn4k7MXjQ">
     <title>Jarin Atelier | Luxury Islamic Calligraphy & Custom Art</title>
-
-    <!-- Small icons (the old 738 KB logo PNG was being downloaded as the favicon) -->
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-    <!-- The intro logo is the first big thing on screen (LCP): fetch it first -->
     <link
       rel="preload"
       as="image"
@@ -20,8 +16,6 @@
       imagesizes="105px"
       fetchpriority="high"
     />
-
-    <!-- Fonts: connect early and load without blocking first paint -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -39,8 +33,6 @@
   </head>
   <body>
     <div id="root">
-      <!-- Static copy of the intro screen (LoadingScreen.tsx) so it paints before any
-           JavaScript runs. React replaces it with the identical animated version. -->
       <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#070707] text-brand-cream overflow-hidden">
         <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
           <div class="w-[120px] h-[120px] rounded-full bg-brand-gold/25 blur-[45px]"></div>
@@ -64,7 +56,6 @@
               />
             </div>
           </div>
-          <!-- Same size as the tagline block so the logo doesn't shift when React takes over -->
           <div class="text-center mt-8" style="opacity:0" aria-hidden="true">
             <div class="font-serif text-3xl tracking-[0.3em] text-white font-light">JARIN</div>
             <div class="font-serif text-xs tracking-[0.4em] text-brand-gold mt-1 uppercase font-semibold">– ATELIER –</div>
