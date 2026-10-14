@@ -243,7 +243,8 @@ function ArtworkPlane({ item, isSelected, hovered, onSelect }: {
   hovered: boolean;
   onSelect: () => void;
 }) {
-  const texture = useTexture(item.imageUrl);
+  // 640px WebP is plenty for an on-screen frame and ~4x lighter than the full file
+  const texture = useTexture(item.imageUrl.replace(/(art-\d+)\.webp$/, '$1-640.webp'));
   texture.colorSpace = THREE.SRGBColorSpace;
   const scale = isSelected ? 1.04 : hovered ? 1.02 : 1.0;
 
@@ -611,7 +612,9 @@ export default function ThreeGallery({ onOpenFullResolution }: ThreeGalleryProps
             <div className="space-y-4 flex-1">
               <div className="rounded-lg overflow-hidden border border-white/5 bg-[#121212]/50 aspect-video relative flex items-center justify-center p-2">
                 <img
-                  src={shown.imageUrl}
+                  src={shown.imageUrl.replace(/(art-\d+)\.webp$/, '$1-640.webp')}
+                  width={640}
+                  height={360}
                   alt={shown.title}
                   referrerPolicy="no-referrer"
                   loading="lazy"

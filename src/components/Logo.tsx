@@ -11,6 +11,8 @@ interface LogoProps {
   customHeight?: number;
   showText?: boolean;
   lightVariant?: boolean;
+  /** Above-the-fold use (e.g. the intro screen): fetch it first, never lazily */
+  priority?: boolean;
 }
 
 export default function Logo({
@@ -19,6 +21,7 @@ export default function Logo({
   customHeight,
   showText = true,
   lightVariant = false,
+  priority = false,
 }: LogoProps) {
   const [imageError, setImageError] = useState(false);
 
@@ -34,6 +37,9 @@ export default function Logo({
   };
 
   const selectedDim = dimensions[size];
+  // Rendered size of the mark (229x480 source) so the browser picks the smallest file that fits
+  const markHeight = Math.min(selectedDim.height, size === 'custom' && customHeight ? customHeight : Infinity);
+  const markWidth = Math.round((markHeight * 229) / 480);
 
   // If the user uploads the real image, load it.
   // We use the extracted transparent logo mark, and fallback to the vector representation
@@ -50,10 +56,15 @@ export default function Logo({
           style={{ width: '72%', height: '58%', background: 'radial-gradient(circle, rgba(200,161,90,0.30), transparent 70%)' }}
         />
         <img
-          src="/assets/logo-mark.webp"
+          src="/assets/logo-mark-400.webp"
+          srcSet="/assets/logo-mark-240.webp 115w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
+          sizes={`${markWidth}px`}
           width={229}
           height={480}
           alt="Jarin Atelier"
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : 'auto'}
+          decoding={priority ? 'sync' : 'async'}
           referrerPolicy="no-referrer"
           onError={() => setImageError(true)}
           className="relative h-full w-auto object-contain drop-shadow-[0_8px_26px_rgba(200,161,90,0.28)]"

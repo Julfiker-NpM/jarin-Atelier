@@ -111,7 +111,7 @@ export async function drawInvoice(canvas: HTMLCanvasElement, data: InvoiceData) 
   let y = M;
 
   // ---- Header: logo + brand ----
-  const logo = await loadImage('/assets/logo-mark.png');
+  const logo = await loadImage('/assets/logo-mark.webp');
   const logoH = 86;
   if (logo) {
     const ratio = Math.min(logoH / logo.height, logoH / logo.width);

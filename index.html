@@ -4,15 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="speedforge-verification" content="RQbNWhNgjZI9NL4mn4k7MXjQ">
-    <link rel="icon" type="image/png" href="/assets/logo-mark.png" />
-    <link rel="apple-touch-icon" href="/assets/logo-mark.png" />
-    <title>Jarin Atelier | Luxury Islamic Calligraphy & Custom Art
-</title>
+    <title>Jarin Atelier | Luxury Islamic Calligraphy & Custom Art</title>
 
+    <!-- Small icons (the old 738 KB logo PNG was being downloaded as the favicon) -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- The intro logo is the first big thing on screen (LCP): fetch it first -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/assets/logo-mark-400.webp"
+      imagesrcset="/assets/logo-mark-240.webp 115w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
+      imagesizes="105px"
+      fetchpriority="high"
+    />
+
+    <!-- Fonts: connect early and load without blocking first paint -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static copy of the intro screen (LoadingScreen.tsx) so it paints before any
+           JavaScript runs. React replaces it with the identical animated version. -->
+      <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#070707] text-brand-cream overflow-hidden">
+        <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+          <div class="w-[120px] h-[120px] rounded-full bg-brand-gold/25 blur-[45px]"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,161,90,0.08)_0%,transparent_70%)]"></div>
+        </div>
+        <div class="relative z-10 flex flex-col items-center justify-center max-w-xs px-4">
+          <div class="w-48 sm:w-56 drop-shadow-[0_0_25px_rgba(200,161,90,0.2)]">
+            <div class="relative flex flex-col items-center justify-center px-2" style="height:297px;width:auto">
+              <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl" style="width:72%;height:58%;background:radial-gradient(circle, rgba(200,161,90,0.30), transparent 70%)"></div>
+              <img
+                src="/assets/logo-mark-400.webp"
+                srcset="/assets/logo-mark-240.webp 115w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
+                sizes="105px"
+                width="229"
+                height="480"
+                alt="Jarin Atelier"
+                fetchpriority="high"
+                decoding="sync"
+                class="relative h-full w-auto object-contain drop-shadow-[0_8px_26px_rgba(200,161,90,0.28)]"
+                style="max-height:220px"
+              />
+            </div>
+          </div>
+          <!-- Same size as the tagline block so the logo doesn't shift when React takes over -->
+          <div class="text-center mt-8" style="opacity:0" aria-hidden="true">
+            <div class="font-serif text-3xl tracking-[0.3em] text-white font-light">JARIN</div>
+            <div class="font-serif text-xs tracking-[0.4em] text-brand-gold mt-1 uppercase font-semibold">– ATELIER –</div>
+            <div class="w-16 h-[1px] bg-brand-gold/30 mx-auto my-5"></div>
+            <div class="font-serif italic text-xs text-gray-400 tracking-[0.2em]">Where Faith Meets Art</div>
+          </div>
+        </div>
+        <div class="absolute top-8 left-8 w-6 h-6 border-t border-l border-brand-gold/20"></div>
+        <div class="absolute top-8 right-8 w-6 h-6 border-t border-r border-brand-gold/20"></div>
+        <div class="absolute bottom-8 left-8 w-6 h-6 border-b border-l border-brand-gold/20"></div>
+        <div class="absolute bottom-8 right-8 w-6 h-6 border-b border-r border-brand-gold/20"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
