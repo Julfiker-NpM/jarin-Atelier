@@ -195,7 +195,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Islamic',
     imageLabel: 'Artwork 01',
     description: 'Surah An-Nur ("God is the light of the heavens and the earth") rendered in a stunning solar burst layout inside a hand-gilded arch, representing the mihrab of faith.',
-    imageUrl: '/assets/art-01.png'
+    imageUrl: '/assets/art-01.webp'
   },
   {
     id: 'g-02',
@@ -204,7 +204,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Canvas',
     imageLabel: 'Artwork 02',
     description: 'Textured gold leaf cascading over a rich dark chocolate Belgian linen background, representing the infinite starting point of divine grace.',
-    imageUrl: '/assets/art-02.png'
+    imageUrl: '/assets/art-02.webp'
   },
   {
     id: 'g-03',
@@ -213,7 +213,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Wedding',
     imageLabel: 'Artwork 03',
     description: 'A bespoke family lineage map written in classical Diwani script, accented with imperial crimson ink and gold leaf borders.',
-    imageUrl: '/assets/art-03.png'
+    imageUrl: '/assets/art-03.webp'
   },
   {
     id: 'g-04',
@@ -222,7 +222,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Popular',
     imageLabel: 'Artwork 04',
     description: 'A massive circular rendering of Ayatul Kursi detailed in 24k gold, which spent three months in hand-crafting before final polish.',
-    imageUrl: '/assets/art-04.png'
+    imageUrl: '/assets/art-04.webp'
   },
   {
     id: 'g-05',
@@ -231,7 +231,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Wedding',
     imageLabel: 'Artwork 05',
     description: 'An elegant wedding commission inside a champagne gold floating frame, detailed with soft cream tones and delicate floral borders.',
-    imageUrl: '/assets/art-05.png'
+    imageUrl: '/assets/art-05.webp'
   },
   {
     id: 'g-06',
@@ -240,7 +240,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Newest',
     imageLabel: 'Artwork 06',
     description: 'An ultra-minimalist horizontal calligraphy composition showcasing Surah Al-Asr with thick black ink and elegant gold highlights.',
-    imageUrl: '/assets/art-06.png'
+    imageUrl: '/assets/art-06.webp'
   },
   {
     id: 'g-07',
@@ -249,7 +249,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Islamic',
     imageLabel: 'Artwork 07',
     description: 'An outstanding hand-gilded dual-panel composition of Arabic calligraphy, written in thick, burning-crimson Thuluth letters over a highly textured forest-emerald background, encased in an imperial gold frame. Signed by Jarin.',
-    imageUrl: '/assets/art-07.png'
+    imageUrl: '/assets/art-07.webp'
   },
   {
     id: 'g-08',
@@ -258,7 +258,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Canvas',
     imageLabel: 'Artwork 08',
     description: 'An exquisite hand-painted canvas detailing a magnificent sunset over a calm sea, featuring deep-crimson, yellow, and orange cloudscapes reflecting over soft teal-blue ripples. Set in a thick, textured luxury gold frame.',
-    imageUrl: '/assets/art-08.png'
+    imageUrl: '/assets/art-08.webp'
   },
   {
     id: 'g-09',
@@ -267,7 +267,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Wedding',
     imageLabel: 'Artwork 09',
     description: 'Bespoke floral and calligraphic wedding commission forming a gorgeous golden heart structure, with swirling blue and teal marble details, complete with custom plaque and white roses display. Signed by Jarin.',
-    imageUrl: '/assets/art-09.png'
+    imageUrl: '/assets/art-09.webp'
   },
   {
     id: 'g-10',
@@ -276,7 +276,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Islamic',
     imageLabel: 'Artwork 10',
     description: 'Classical "Bismillah" composed beautifully in lime-green and white calligraphy on an organic textured field, housed in a contemporary matte-black gallery frame.',
-    imageUrl: '/assets/art-10.png'
+    imageUrl: '/assets/art-10.webp'
   },
   {
     id: 'g-11',
@@ -285,7 +285,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Canvas',
     imageLabel: 'Artwork 11',
     description: 'Divine gold and bronze Thuluth script of Surah Al-Ikhlas over a dark textured earth and mahogany backdrop, framed in bold gallery obsidian-black. Signed by Jarin.',
-    imageUrl: '/assets/art-01.png'
+    imageUrl: '/assets/art-01.webp'
   },
   {
     id: 'g-12',
@@ -294,7 +294,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Islamic',
     imageLabel: 'Artwork 12',
     description: 'An elegant composition of the divine name "Allah" scripted in modern white-contoured calligraphy against a highly textured rich royal cobalt blue backdrop. Framed in a premium dark wood frame.',
-    imageUrl: '/assets/art-10.png'
+    imageUrl: '/assets/art-10.webp'
   },
   {
     id: 'g-13',
@@ -303,7 +303,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Popular',
     imageLabel: 'Artwork 13',
     description: 'An intense calligraphic expression representing divine and human affection, shaped like a flame in a striking crimson hue over a glowing sunburst abstract background, enclosed in a matte-black frame.',
-    imageUrl: '/assets/art-03.png'
+    imageUrl: '/assets/art-03.webp'
   },
   {
     id: 'g-14',
@@ -312,7 +312,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Newest',
     imageLabel: 'Artwork 14',
     description: 'A deeply serene nocturnal canvas depicting the Holy Kaaba under starlight, highlighted by beautiful Bengali calligraphy on the left saying "Amar Jonno Allah\'i Jothesto" (Allah is enough for me). Housed in a dark wood frame.',
-    imageUrl: '/assets/art-09.png'
+    imageUrl: '/assets/art-09.webp'
   }
 ];
 
