@@ -29,9 +29,35 @@ function inlineCss(): Plugin {
   };
 }
 
+/**
+ * The Site chunk is loaded with a dynamic import, which Vite doesn't preload. Add
+ * <link rel="modulepreload"> tags for it (and its imports) so it downloads in parallel
+ * with the entry script instead of after it.
+ */
+function preloadSiteChunk(): Plugin {
+  return {
+    name: 'preload-site-chunk',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        if (!ctx.bundle) return html;
+        const chunks = Object.values(ctx.bundle).filter((f) => f.type === 'chunk');
+        const site = chunks.find((c) => c.type === 'chunk' && c.facadeModuleId?.endsWith('/src/Site.tsx'));
+        if (!site || site.type !== 'chunk') return html;
+        const entry = chunks.find((c) => c.type === 'chunk' && c.isEntry);
+        const already = new Set(entry && entry.type === 'chunk' ? [entry.fileName, ...entry.imports] : []);
+        const files = [site.fileName, ...site.imports].filter((f) => !already.has(f));
+        const tags = files.map((f) => `<link rel="modulepreload" crossorigin href="/${f}">`).join('');
+        return html.replace('</head>', `${tags}</head>`);
+      },
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), inlineCss()],
+    plugins: [react(), tailwindcss(), inlineCss(), preloadSiteChunk()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
