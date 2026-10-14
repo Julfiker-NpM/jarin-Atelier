@@ -43,13 +43,23 @@ function preloadSiteChunk(): Plugin {
       handler(html, ctx) {
         if (!ctx.bundle) return html;
         const chunks = Object.values(ctx.bundle).filter((f) => f.type === 'chunk');
-        const site = chunks.find((c) => c.type === 'chunk' && c.facadeModuleId?.endsWith('/src/Site.tsx'));
-        if (!site || site.type !== 'chunk') return html;
+        const site = chunks.find(
+          (c) =>
+            c.type === 'chunk' &&
+            !c.isEntry &&
+            (c.name === 'Site' ||
+              /[\\/]src[\\/]Site\.tsx/.test(c.facadeModuleId ?? '') ||
+              /(^|\/)Site-[\w-]+\.js$/.test(c.fileName)),
+        );
+        if (!site || site.type !== 'chunk') {
+          const names = chunks.map((c) => (c.type === 'chunk' ? `${c.name}:${c.isEntry ? 'E' : ''}${c.isDynamicEntry ? 'D' : ''}` : '')).join(',');
+          return html.replace('</head>', `<!-- preload-site-chunk: not found [${names}] --></head>`);
+        }
         const entry = chunks.find((c) => c.type === 'chunk' && c.isEntry);
         const already = new Set(entry && entry.type === 'chunk' ? [entry.fileName, ...entry.imports] : []);
         const files = [site.fileName, ...site.imports].filter((f) => !already.has(f));
         const tags = files.map((f) => `<link rel="modulepreload" crossorigin href="/${f}">`).join('');
-        return html.replace('</head>', `${tags}</head>`);
+        return html.replace('</head>', `${tags || `<!-- preload-site-chunk: nothing to add (${site.fileName}) -->`}</head>`);
       },
     },
   };
