@@ -57,7 +57,7 @@ export default function Logo({
         />
         <img
           src="/assets/logo-mark-400.webp"
-          srcSet="/assets/logo-mark-240.webp 115w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
+          srcSet="/assets/logo-mark-240.webp 114w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
           sizes={`${markWidth}px`}
           width={229}
           height={480}
