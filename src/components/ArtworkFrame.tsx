@@ -6,6 +6,22 @@
 import React from 'react';
 import { motion } from 'motion/react';
 
+// Real pixel widths of the generated artwork files, so the browser picks the
+// smallest file that is sharp enough for the frame (480 / 640 / full size).
+const ART_WIDTHS: Record<string, [number, number]> = {
+  'art-01': [585, 1199], 'art-02': [640, 1254], 'art-03': [585, 1199], 'art-04': [512, 1122],
+  'art-05': [640, 1268], 'art-06': [640, 1254], 'art-07': [640, 1310], 'art-08': [640, 1312],
+  'art-09': [598, 1212], 'art-10': [640, 1254],
+};
+
+function artSrcSet(url: string): string | undefined {
+  const m = url.match(/\/(art-\d+)\.webp$/);
+  const widths = m && ART_WIDTHS[m[1]];
+  if (!widths) return undefined;
+  const base = url.replace(/\.webp$/, '');
+  return `${base}-480.webp 480w, ${base}-640.webp ${widths[0]}w, ${url} ${widths[1]}w`;
+}
+
 interface ArtworkFrameProps {
   label: string;
   arabicLabel?: string;
@@ -60,7 +76,7 @@ export default function ArtworkFrame({
             <>
               <img
                 src={imageUrl}
-                srcSet={/art-\d+\.webp$/.test(imageUrl) ? `${imageUrl.replace(/\.webp$/, '-640.webp')} 640w, ${imageUrl} 1250w` : undefined}
+                srcSet={artSrcSet(imageUrl)}
                 sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 45vw, 400px"
                 width={640}
                 height={640}

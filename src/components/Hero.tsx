@@ -95,7 +95,7 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
             <div className="relative overflow-hidden rounded-xl bg-brand-black">
               <img
                 src="/assets/art-01-640.webp"
-                srcSet="/assets/art-01-640.webp 585w, /assets/art-01.webp 1199w"
+                srcSet="/assets/art-01-480.webp 480w, /assets/art-01-640.webp 585w, /assets/art-01.webp 1199w"
                 sizes="(max-width: 640px) 316px, (max-width: 1024px) 348px, 388px"
                 width={585}
                 height={640}

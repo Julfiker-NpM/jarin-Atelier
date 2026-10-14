@@ -12,10 +12,25 @@
       as="image"
       type="image/webp"
       href="/assets/logo-mark-400.webp"
-      imagesrcset="/assets/logo-mark-240.webp 115w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
+      imagesrcset="/assets/logo-mark-240.webp 114w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
       imagesizes="105px"
       fetchpriority="high"
     />
+    <script>
+      // Home page: start fetching the hero artwork (the LCP image) right away,
+      // instead of waiting for JavaScript to render the hero.
+      if (location.pathname === '/' || location.pathname === '') {
+        var l = document.createElement('link');
+        l.rel = 'preload';
+        l.as = 'image';
+        l.type = 'image/webp';
+        l.href = '/assets/art-01-640.webp';
+        l.setAttribute('imagesrcset', '/assets/art-01-480.webp 480w, /assets/art-01-640.webp 585w, /assets/art-01.webp 1199w');
+        l.setAttribute('imagesizes', '(max-width: 640px) 316px, (max-width: 1024px) 348px, 388px');
+        l.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(l);
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -44,7 +59,7 @@
               <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl" style="width:72%;height:58%;background:radial-gradient(circle, rgba(200,161,90,0.30), transparent 70%)"></div>
               <img
                 src="/assets/logo-mark-400.webp"
-                srcset="/assets/logo-mark-240.webp 115w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
+                srcset="/assets/logo-mark-240.webp 114w, /assets/logo-mark-400.webp 191w, /assets/logo-mark.webp 229w"
                 sizes="105px"
                 width="229"
                 height="480"
