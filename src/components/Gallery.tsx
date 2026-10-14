@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ZoomIn, ZoomOut, X, Sparkles, SlidersHorizontal, Info, Compass } from 'lucide-react';
 import { GALLERY_ITEMS } from '../data';
 import { GalleryItem } from '../types';
 import ArtworkFrame from './ArtworkFrame';
-import ThreeGallery from './ThreeGallery';
+// three.js is heavy — load it only when the 3D salon is actually shown
+const ThreeGallery = lazy(() => import('./ThreeGallery'));
 
 // Gracefully fall back to the 2D grid when WebGL is unavailable
 // (headless/old browsers, GPU blocklist, etc.) so the salon never
@@ -144,7 +145,9 @@ export default function Gallery() {
             transition={{ duration: 0.6 }}
             className="mb-6 animate-fade-in"
           >
-            <ThreeGallery onOpenFullResolution={(item) => handleOpenLightbox(item)} />
+            <Suspense fallback={<div className="w-full aspect-[16/9] rounded-xl bg-brand-black/40 animate-pulse" />}>
+              <ThreeGallery onOpenFullResolution={(item) => handleOpenLightbox(item)} />
+            </Suspense>
           </motion.div>
         ) : (
           /* Traditional 2D Filtered Grid View */

@@ -93,10 +93,15 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
 
             <div className="relative overflow-hidden rounded-xl bg-brand-black">
               <img
-                src="/assets/art-01.png"
+                src="/assets/art-01-640.webp"
+                srcSet="/assets/art-01-640.webp 585w, /assets/art-01.webp 1199w"
+                sizes="(max-width: 640px) 340px, (max-width: 1024px) 380px, 420px"
+                width={585}
+                height={640}
                 alt="Jarin Atelier — Surah An-Nur gold-gilded masterpiece"
                 referrerPolicy="no-referrer"
                 loading="eager"
+                fetchPriority="high"
                 decoding="async"
                 className="w-full h-auto object-cover rounded-xl transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
               />
