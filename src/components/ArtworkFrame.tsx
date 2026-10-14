@@ -61,7 +61,7 @@ export default function ArtworkFrame({
               <img
                 src={imageUrl}
                 srcSet={/art-\d+\.webp$/.test(imageUrl) ? `${imageUrl.replace(/\.webp$/, '-640.webp')} 640w, ${imageUrl} 1250w` : undefined}
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 400px"
+                sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 45vw, 400px"
                 width={640}
                 height={640}
                 alt={label}

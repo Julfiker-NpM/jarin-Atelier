@@ -455,3 +455,13 @@ textarea:focus {
     animation: none !important;
   }
 }
+
+/* Lightweight CSS loops (replace per-frame JS animations) */
+@keyframes scrollHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+@keyframes loaderBar {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}

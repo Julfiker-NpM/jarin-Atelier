@@ -18,8 +18,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-      setTimeout(onComplete, 800); // Wait for exit animation
-    }, 2800);
+      setTimeout(onComplete, 450); // Wait for exit animation
+    }, 1400);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -32,7 +32,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#070707] text-brand-cream overflow-hidden"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Pitch-black background with a central breathing golden point-light spotlight */}
           <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
@@ -82,7 +82,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-center mt-8"
             >
               <h1 className="font-serif text-3xl tracking-[0.3em] text-white font-light">
@@ -99,12 +99,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
             {/* Delicate Loading Indicator bar */}
             <div className="absolute bottom-[-80px] left-8 right-8 h-[1px] bg-white/5 overflow-hidden rounded-full">
-              <motion.div
-                className="h-full bg-gradient-to-r from-transparent via-brand-gold to-transparent"
-                initial={{ left: '-100%', width: '100%', position: 'absolute' }}
-                animate={{ left: '100%' }}
-                transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}
-              />
+              <div className="absolute inset-y-0 w-full bg-gradient-to-r from-transparent via-brand-gold to-transparent animate-[loaderBar_1.4s_ease-in-out_infinite]" />
             </div>
           </div>
 

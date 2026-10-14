@@ -73,9 +73,10 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
         
         {/* 1. INTERACTIVE 3D ARTWORK FRAME (Left Column on large displays) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 30 }}
+          // Visible from the first frame (it's the main image); only a gentle settle-in
+          initial={{ opacity: 1, scale: 0.96, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           style={{
             rotateX: rotateX,
             rotateY: rotateY,
@@ -95,7 +96,7 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
               <img
                 src="/assets/art-01-640.webp"
                 srcSet="/assets/art-01-640.webp 585w, /assets/art-01.webp 1199w"
-                sizes="(max-width: 640px) 340px, (max-width: 1024px) 380px, 420px"
+                sizes="(max-width: 640px) 316px, (max-width: 1024px) 348px, 388px"
                 width={585}
                 height={640}
                 alt="Jarin Atelier — Surah An-Nur gold-gilded masterpiece"
@@ -204,12 +205,9 @@ export default function Hero({ onExploreClick, onCustomClick }: HeroProps) {
         <span className="text-[9px] tracking-[0.25em] uppercase mb-2 font-sans opacity-70">
           Scroll To Enter Boutique
         </span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        >
+        <div className="animate-[scrollHint_1.8s_ease-in-out_infinite]">
           <ArrowDown size={14} />
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
