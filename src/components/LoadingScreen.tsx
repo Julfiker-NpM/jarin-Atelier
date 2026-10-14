@@ -67,13 +67,15 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           
           <div className="relative z-10 flex flex-col items-center justify-center max-w-xs px-4">
             {/* Animating Jarin Atelier Logo */}
+            {/* Starts fully visible: the same logo is already painted by the static
+                splash in index.html, so fading it in again would flicker and delay LCP */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 10 }}
+              initial={false}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="w-48 sm:w-56 drop-shadow-[0_0_25px_rgba(200,161,90,0.2)]"
             >
-              <Logo size="custom" customHeight={220} showText={false} />
+              <Logo size="custom" customHeight={220} showText={false} priority />
             </motion.div>
 
             {/* Studio Brand Name and Tagline */}
