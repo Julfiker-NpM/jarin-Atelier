@@ -50,7 +50,10 @@ export default function App() {
     };
   }, [skipIntro]);
 
-  const showSite = siteReady && minTimeDone;
+  // Render the site underneath the intro as soon as its code has arrived, so the hero
+  // (the LCP image) paints right away; the intro only fades once the minimum time is up.
+  const showSite = siteReady;
+  const introLeaving = siteReady && minTimeDone;
   const handleIntroExited = useCallback(() => setIntroGone(true), []);
 
   return (
@@ -61,7 +64,7 @@ export default function App() {
         </Suspense>
       )}
       {!introGone && (
-        <LoadingScreen leaving={showSite} onExited={handleIntroExited} />
+        <LoadingScreen leaving={introLeaving} onExited={handleIntroExited} />
       )}
     </>
   );
