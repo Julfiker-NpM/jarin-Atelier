@@ -164,7 +164,7 @@ export default function Shop({ onAddToCart, onAddToWishlist, wishlistIds }: Shop
                             label={product.name}
                             arabicLabel={product.arabicName}
                             aspectRatio="portrait"
-                            imageUrl={`/assets/${product.images[0]}.png`}
+                            imageUrl={`/assets/${product.images[0]}.webp`}
                           />
                           
                           {/* Badge */}
@@ -287,7 +287,7 @@ export default function Shop({ onAddToCart, onAddToWishlist, wishlistIds }: Shop
                       label={selectedProduct.name}
                       arabicLabel={selectedProduct.arabicName}
                       aspectRatio="portrait"
-                      imageUrl={`/assets/${selectedProduct.images[0]}.png`}
+                      imageUrl={`/assets/${selectedProduct.images[0]}.webp`}
                       className="rounded-lg shadow-inner"
                     />
                   </div>
@@ -537,7 +537,7 @@ export default function Shop({ onAddToCart, onAddToWishlist, wishlistIds }: Shop
                   label={quickViewProduct.name}
                   arabicLabel={quickViewProduct.arabicName}
                   aspectRatio="portrait"
-                  imageUrl={`/assets/${quickViewProduct.images[0]}.png`}
+                  imageUrl={`/assets/${quickViewProduct.images[0]}.webp`}
                 />
                   </div>
 

@@ -50,7 +50,9 @@ export default function Logo({
           style={{ width: '72%', height: '58%', background: 'radial-gradient(circle, rgba(200,161,90,0.30), transparent 70%)' }}
         />
         <img
-          src="/assets/logo-mark.png"
+          src="/assets/logo-mark.webp"
+          width={229}
+          height={480}
           alt="Jarin Atelier"
           referrerPolicy="no-referrer"
           onError={() => setImageError(true)}

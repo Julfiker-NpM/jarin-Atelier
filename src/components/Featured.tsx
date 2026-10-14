@@ -153,7 +153,7 @@ export default function Featured({
                       label={product.name}
                       arabicLabel={product.arabicName}
                       aspectRatio="portrait"
-                      imageUrl={`/assets/${product.images[0]}.png`}
+                      imageUrl={`/assets/${product.images[0]}.webp`}
                       glowColor={index % 2 === 0 ? 'rgba(200, 161, 90, 0.16)' : 'rgba(85, 107, 47, 0.12)'}
                     />
 
